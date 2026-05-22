@@ -3,60 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WikiSniff - Educational Reference Tool</title>
+    <title>WebArch Portal - Open Documentation & Blog</title>
     <style>
         :root {
-            --wiki-bg: #f8f9fa;
-            --wiki-border: #a2a9b1;
-            --wiki-text: #202122;
-            --wiki-link: #3366cc;
-            --wiki-panel: #ffffff;
+            --bg-canvas: #f8f9fa;
+            --bg-panel: #ffffff;
+            --border-color: #a2a9b1;
+            --text-primary: #202122;
+            --text-muted: #54595d;
+            --link-color: #3366cc;
+            --link-hover: #23468c;
+            --accent-red: #b32424;
+            --blog-accent: #008559;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: sans-serif;
         }
 
         body {
-            background-color: var(--wiki-bg);
-            color: var(--wiki-text);
-            padding: 20px;
+            background-color: var(--bg-canvas);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 14px;
             line-height: 1.6;
+            padding: 24px;
         }
 
         .wiki-container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: var(--wiki-panel);
-            border: 1px solid var(--wiki-border);
-            padding: 30px;
-            border-radius: 2px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         }
 
         .wiki-header {
-            border-bottom: 1px solid var(--wiki-border);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
         }
 
         .wiki-title {
-            font-family: 'Georgia', serif;
-            font-size: 28px;
+            font-family: "Georgia", serif;
+            font-size: 32px;
             font-weight: normal;
+            color: #000000;
+            cursor: pointer;
+        }
+
+        .wiki-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .search-section {
+            background: var(--bg-canvas);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            margin-bottom: 24px;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .search-section label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-section input {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            width: 100%;
+            max-width: 320px;
+            background: var(--bg-panel);
+        }
+
+        .search-section button {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .search-section button:hover {
+            background-color: #f0f0f0;
         }
 
         .wiki-layout {
             display: grid;
-            grid-template-columns: 1fr 240px;
-            gap: 20px;
+            grid-template-columns: 1fr 280px;
+            gap: 32px;
         }
 
         @media (max-width: 768px) {
@@ -65,111 +120,88 @@
             }
         }
 
-        .main-article h2 {
-            font-family: 'Georgia', serif;
-            font-size: 20px;
-            font-weight: normal;
-            border-bottom: 1px solid var(--wiki-border);
-            margin: 20px 0 10px;
-            padding-bottom: 4px;
-        }
-
         .main-article p {
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-align: justify;
         }
 
-        .bullet-list {
-            margin-left: 20px;
-            margin-bottom: 15px;
+        .main-article h2 {
+            font-family: "Georgia", serif;
+            font-size: 24px;
+            font-weight: normal;
+            border-bottom: 1px solid var(--border-color);
+            margin: 24px 0 14px;
+            padding-bottom: 6px;
+            color: #000000;
         }
 
-        .bullet-list li {
-            margin-bottom: 6px;
+        /* Blog Styling */
+        .blog-post {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .blog-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .blog-tag {
+            background: #eef7f2;
+            color: var(--blog-accent);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .sidebar-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .sidebar-box {
-            background-color: #f8f9fa;
-            border: 1px solid var(--wiki-border);
-            padding: 12px;
-            font-size: 13px;
-        }
-
-        .sidebar-box h4 {
-            margin-bottom: 8px;
-            border-bottom: 1px solid var(--wiki-border);
-            padding-bottom: 2px;
-        }
-
-        .tool-link {
-            display: block;
-            color: var(--wiki-link);
-            text-decoration: none;
-            margin-bottom: 6px;
-            cursor: pointer;
-        }
-
-        .tool-link:hover {
-            text-decoration: underline;
-        }
-
-        .search-section {
-            background: #f8f9fa;
-            border: 1px solid var(--wiki-border);
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-
-        .search-section input {
-            padding: 6px 10px;
-            font-size: 14px;
-            border: 1px solid var(--wiki-border);
-            width: 250px;
-            margin-right: 8px;
-        }
-
-        .search-section button {
-            padding: 6px 12px;
-            font-size: 14px;
-            background-color: #f8f9fa;
-            border: 1px solid var(--wiki-border);
-            cursor: pointer;
+            background-color: var(--bg-canvas);
+            border: 1px solid var(--border-color);
+            padding: 16px;
             border-radius: 2px;
         }
 
-        .search-section button:hover {
-            background-color: #eee;
+        .sidebar-box h4 {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+            color: var(--text-muted);
         }
 
-        .game-menu-title {
-            color: #b32424;
-            font-family: 'Georgia', serif;
-            margin-bottom: 15px;
-        }
-
-        .simple-list {
-            list-style-type: none;
-        }
-
-        .simple-list li {
-            padding: 8px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .simple-list a {
-            color: var(--wiki-link);
+        .tool-link, .nav-link {
+            display: block;
+            color: var(--link-color);
             text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            font-size: 13px;
         }
 
-        .simple-list a:hover {
+        .tool-link:hover, .nav-link:hover {
+            color: var(--link-hover);
             text-decoration: underline;
         }
 
         .hidden {
             display: none !important;
+        }
+
+        .loading-text {
+            font-style: italic;
+            color: var(--text-muted);
         }
     </style>
 </head>
@@ -178,43 +210,35 @@
     <div class="wiki-container">
         
         <div class="wiki-header">
-            <div class="wiki-title">WikiSniff</div>
-            <div style="font-size: 12px; color: #54595d;">The Free Educational Reference Extension</div>
+            <div class="wiki-title" onclick="loadBlog()">WebArch Portal</div>
+            <div class="wiki-subtitle">Live Wikipedia Client & System Blog</div>
         </div>
 
         <div class="search-section">
-            <label for="wikiSearch" style="display:block; margin-bottom: 6px; font-weight: bold;">Search reference database or enter entry code:</label>
-            <input type="text" id="wikiSearch" placeholder="Title, concept, or code..." />
-            <button onclick="checkRoute()">Search</button>
+            <label for="wikiSearch">Search live Wikipedia entries or enter system access token:</label>
+            <div class="search-controls">
+                <input type="text" id="wikiSearch" placeholder="Type a topic (e.g., Internet, Computing) or code..." />
+                <button onclick="checkRoute()">Execute Query</button>
+            </div>
         </div>
 
         <div id="articleView" class="wiki-layout">
-            <div class="main-article">
-                <p><i>From WikiSniff, the open educational learning index</i></p>
-                
-                <h2>Web-Based Educational Tools</h2>
-                <p><b>Educational reference platforms</b> are digital resource interfaces engineered to organize, summarize, and deliver academic text content to students and classrooms. These tools focus heavily on micro-learning strategies, enabling research students to grab key structural elements of long-form reading material without sorting through extraneous introductory text strings.</p>
-                
-                <h2>Methodology and Benefits</h2>
-                <p>Modern online learning environments leverage automated index structures to provide clean reading spaces. Key advantages of using centralized web-based indices include:</p>
-                <ul class="bullet-list">
-                    <li><b>Improved Readability:</b> Minimizes distractions by presenting raw educational facts directly.</li>
-                    <li><b>Resource Organization:</b> Houses complex documentation, media directories, and secondary references inside a single unified container.</li>
-                    <li><b>Adaptive Navigation:</b> Provides instantaneous redirection to live external host layers or sandboxed sandbox modules.</li>
-                </ul>
-
-                <h2>History of the Digital Blog Index</h2>
-                <p>The concept originated alongside early web logging architectures, where creators utilized plain-text references to track active database deployments across distributed global content delivery networks (CDNs). Over time, these catalogs transitioned into student learning guides used across schools globally.</p>
-            </div>
+            
+            <div class="main-article" id="articleDynamicContent">
+                </div>
 
             <div class="sidebar-wrapper">
                 <div class="sidebar-box">
-                    <h4>Reference Tools</h4>
-                    <span class="tool-link" onclick="alert('Viewing current database build revision 1.4.2')">What links here</span>
-                    <span class="tool-link" onclick="alert('Loading related text adjustments...')">Related changes</span>
-                    <span class="tool-link" onclick="alert('Exporting standard print layout...')">Download as PDF</span>
-                    <span class="tool-link" onclick="alert('Permanent entry hash logged.')">Permanent link</span>
-                    <span class="tool-link" onclick="alert('Page properties verified.')">Page information</span>
+                    <h4>Navigation</h4>
+                    <span class="nav-link" onclick="loadBlog()">📰 Site Dev Blog</span>
+                    <span class="nav-link" onclick="fetchWikipedia('World Wide Web')">🌐 World Wide Web</span>
+                    <span class="nav-link" onclick="fetchWikipedia('Hypertext Transfer Protocol')">🔗 HTTP Protocol</span>
+                </div>
+
+                <div class="sidebar-box">
+                    <h4>Portal Utilities</h4>
+                    <span class="tool-link" onclick="alert('API Gateway Status: Operational\nUpstream: Wikipedia REST API v1')">System Status</span>
+                    <span class="tool-link" onclick="window.print()">Print This Layout</span>
                 </div>
             </div>
         </div>
@@ -224,29 +248,93 @@
     </div>
 
     <script>
+        const blogContent = `
+            <h2>Site Developer Blog</h2>
+            <p>Welcome to the project updates section. Here we detail architecture adjustments and engine modifications.</p>
+            
+            <div class="blog-post">
+                <h3>System Upgrade: Live Wikipedia Integration</h3>
+                <div class="blog-meta">Posted on May 22, 2026 by Admin <span class="blog-tag">Feature</span></div>
+                <p>We have successfully integrated the official MediaWiki API. The search component now accepts real-time entries, pulling directly from live Wikipedia summaries. Standard search parsing handles common spaces, multi-word titles, and handles network request timeouts gracefully.</p>
+            </div>
+
+            <div class="blog-post">
+                <h3>Optimizing External Resource Layouts</h3>
+                <div class="blog-meta">Posted on May 10, 2026 by Architecture Team <span class="blog-tag">Core</span></div>
+                <p>To keep dependencies light, all content injection now leverages pure asynchronous native Fetch mechanisms. This ensures optimal browser rendering speeds and avoids layout shifting when fetching external datasets.</p>
+            </div>
+        `;
+        function loadBlog() {
+            document.getElementById("articleDynamicContent").innerHTML = blogContent;
+        }
+        loadBlog();
+        function fetchWikipedia(pageTitle) {
+            var targetContent = document.getElementById("articleDynamicContent");
+            targetContent.innerHTML = '<p class="loading-text">Querying Wikipedia REST API database endpoints...</p>';
+
+            var url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle.replace(/ /g, '_'))}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 404) throw new Error("Article page not located.");
+                        throw new Error("API failure status returned.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    targetContent.innerHTML = `
+                        <p><i>Live source from Wikipedia, the free encyclopedia</i></p>
+                        <h2>${data.title}</h2>
+                        ${data.thumbnail ? `<img src="${data.thumbnail.source}" style="float: right; margin: 0 0 15px 15px; border: 1px solid #a2a9b1; max-width: 200px;" alt="Wikipedia Visual Reference">` : ''}
+                        <p>${data.extract_html || data.extract}</p>
+                        <br style="clear: both;">
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-top: 20px;">
+                        <p style="font-size: 12px; color: var(--text-muted);">Full reference link available at: <a href="${data.content_urls.desktop.page}" target="_blank" style="color: var(--link-color);">${data.content_urls.desktop.page}</a></p>
+                    `;
+                })
+                .catch(err => {
+                    targetContent.innerHTML = `
+                        <h2>Query Execution Error</h2>
+                        <p style="color: var(--accent-red);">${err.message}</p>
+                        <p>Verify that the term is spelled correctly or check network status indicators.</p>
+                        <button onclick="loadBlog()" style="padding: 4px 8px; margin-top: 10px; cursor: pointer;">Return to Blog</button>
+                    `;
+                });
+        }
+
+        // INTEGRATED ROUTER DISPATCHER
         function checkRoute() {
             var inputField = document.getElementById("wikiSearch");
             var queryValue = inputField.value.trim();
 
-            if (queryValue === "voblitisgood") {
-                var container = document.getElementById("hubView");
-                
+            if (!queryValue) return;
 
-                container.innerHTML = atob("\x50\x47\x52\x70\x64\x69\x42\x70\x5a\x44\x30\x69\x61\x48\x56\x69\x56\x6d\x6c\x6c\x64\x79\x49\x67\x59\x32\x78\x68\x63\x33\x4d\x39\x49\x6d\x68\x70\x5a\x47\x52\x6c\x62\x69\x49\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x6f\x4d\x69\x42\x6a\x62\x47\x46\x7a\x63\x7a\x30\x69\x5a\x32\x46\x74\x5a\x53\x31\x74\x5a\x57\x35\x31\x4c\x58\x52\x70\x64\x47\x78\x6c\x49\x6a\x35\x56\x62\x6d\x78\x76\x59\x32\x74\x6c\x5a\x43\x42\x42\x63\x48\x42\x73\x61\x57\x4e\x68\x64\x47\x6c\x76\x62\x69\x42\x4a\x62\x6d\x52\x6c\x65\x44\x77\x76\x61\x44\x49\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x77\x49\x48\x4e\x30\x65\x57\x78\x6c\x50\x53\x4a\x74\x59\x58\x4a\x6e\x61\x57\x34\x74\x59\x6d\x39\x30\x64\x47\x39\x74\x4f\x69\x41\x78\x4e\x58\x42\x34\x4f\x79\x49\x2b\x55\x32\x56\x73\x5a\x57\x4e\x30\x49\x47\x46\x75\x49\x47\x6c\x30\x5a\x57\x30\x67\x5a\x6e\x4a\x76\x62\x53\x42\x30\x61\x47\x55\x67\x64\x6d\x56\x79\x61\x57\x5a\x70\x5a\x57\x51\x67\x5a\x47\x6c\x79\x5a\x57\x4e\x30\x62\x33\x4a\x35\x49\x47\x78\x70\x63\x33\x51\x67\x64\x47\x38\x67\x62\x33\x42\x6c\x62\x69\x42\x70\x64\x43\x42\x6b\x61\x58\x4a\x6c\x59\x33\x52\x73\x65\x53\x42\x70\x62\x6e\x4e\x70\x5a\x47\x55\x67\x59\x57\x34\x67\x61\x58\x4e\x76\x62\x47\x46\x30\x5a\x57\x51\x67\x59\x57\x4a\x76\x64\x58\x51\x36\x59\x6d\x78\x68\x62\x6d\x73\x67\x5a\x6e\x4a\x68\x62\x57\x55\x36\x50\x43\x39\x77\x50\x67\x6f\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x50\x48\x56\x73\x49\x47\x4e\x73\x59\x58\x4e\x7a\x50\x53\x4a\x7a\x61\x57\x31\x77\x62\x47\x55\x74\x62\x47\x6c\x7a\x64\x43\x49\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x30\x52\x45\x54\x45\x4d\x76\x4a\x79\x6b\x69\x50\x6b\x52\x76\x61\x32\x6b\x67\x52\x47\x39\x72\x61\x53\x42\x4d\x61\x58\x52\x6c\x63\x6d\x46\x30\x64\x58\x4a\x6c\x49\x45\x4e\x73\x64\x57\x49\x38\x4c\x32\x45\x2b\x50\x43\x39\x73\x61\x54\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x73\x61\x54\x34\x38\x59\x53\x42\x6f\x63\x6d\x56\x6d\x50\x53\x49\x6a\x49\x69\x42\x76\x62\x6d\x4e\x73\x61\x57\x4e\x72\x50\x53\x4a\x76\x63\x47\x56\x75\x51\x6d\x78\x68\x62\x6d\x73\x6f\x4a\x79\x39\x77\x63\x6d\x39\x34\x65\x53\x31\x68\x63\x33\x4e\x6c\x64\x48\x4d\x76\x63\x33\x42\x68\x59\x32\x55\x74\x64\x32\x46\x32\x5a\x58\x4d\x76\x50\x32\x5a\x70\x65\x47\x56\x6b\x4a\x79\x6b\x69\x50\x6c\x4e\x77\x59\x57\x4e\x6c\x49\x46\x64\x68\x64\x6d\x56\x7a\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x32\x56\x74\x64\x57\x78\x68\x64\x47\x39\x79\x61\x6e\x4d\x76\x59\x58\x56\x30\x62\x79\x35\x6f\x64\x47\x31\x73\x49\x33\x42\x7a\x65\x43\x39\x53\x5a\x58\x4e\x70\x5a\x47\x56\x75\x64\x43\x55\x79\x4d\x45\x56\x32\x61\x57\x77\x6c\x4d\x6a\x41\x74\x4a\x54\x49\x77\x52\x47\x6c\x79\x5a\x57\x4e\x30\x62\x33\x4a\x63\x4a\x33\x4d\x6c\x4d\x6a\x42\x44\x64\x58\x51\x6c\x4d\x6a\x41\x6f\x56\x56\x4e\x42\x4b\x53\x35\x69\x61\x57\x34\x6e\x4b\x53\x49\x2b\x55\x6d\x56\x7a\x61\x57\x52\x6c\x62\x6e\x51\x67\x52\x58\x5a\x70\x62\x43\x41\x74\x49\x45\x52\x70\x63\x6d\x56\x6a\x64\x47\x39\x79\x4a\x33\x4d\x67\x51\x33\x56\x30\x49\x43\x68\x51\x55\x31\x67\x70\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x33\x52\x6c\x62\x58\x42\x73\x5a\x53\x31\x79\x64\x57\x34\x74\x4d\x69\x38\x6e\x4b\x53\x49\x2b\x56\x47\x56\x74\x63\x47\x78\x6c\x49\x46\x4a\x31\x62\x69\x41\x79\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x33\x5a\x70\x59\x32\x55\x74\x59\x32\x6c\x30\x65\x53\x39\x70\x62\x6d\x52\x6c\x65\x43\x35\x6f\x64\x47\x31\x73\x50\x7a\x31\x6d\x61\x57\x35\x68\x62\x48\x5a\x6c\x63\x6e\x4e\x70\x62\x32\x34\x6e\x4b\x53\x49\x2b\x56\x6d\x6c\x6a\x5a\x53\x42\x44\x61\x58\x52\x35\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x32\x6c\x79\x62\x32\x34\x74\x62\x48\x56\x75\x5a\x79\x38\x6e\x4b\x53\x49\x2b\x53\x58\x4a\x76\x62\x69\x42\x4d\x64\x57\x35\x6e\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x32\x46\x6b\x62\x32\x5a\x68\x61\x53\x38\x6e\x4b\x53\x49\x2b\x51\x53\x42\x45\x59\x57\x35\x6a\x5a\x53\x42\x76\x5a\x69\x42\x47\x61\x58\x4a\x6c\x49\x47\x46\x75\x5a\x43\x42\x4a\x59\x32\x55\x38\x4c\x32\x45\x2b\x50\x43\x39\x73\x61\x54\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x73\x61\x54\x34\x38\x59\x53\x42\x6f\x63\x6d\x56\x6d\x50\x53\x49\x6a\x49\x69\x42\x76\x62\x6d\x4e\x73\x61\x57\x4e\x72\x50\x53\x4a\x76\x63\x47\x56\x75\x51\x6d\x78\x68\x62\x6d\x73\x6f\x4a\x79\x39\x77\x63\x6d\x39\x34\x65\x53\x31\x68\x63\x33\x4e\x6c\x64\x48\x4d\x76\x5a\x58\x4e\x6a\x59\x58\x42\x6c\x4c\x58\x4a\x76\x59\x57\x52\x66\x4d\x69\x38\x6e\x4b\x53\x49\x2b\x52\x58\x4e\x6a\x59\x58\x42\x6c\x49\x46\x4a\x76\x59\x57\x51\x67\x4d\x6a\x77\x76\x59\x54\x34\x38\x4c\x32\x78\x70\x50\x67\x6f\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x50\x47\x78\x70\x50\x6a\x78\x68\x49\x47\x68\x79\x5a\x57\x59\x39\x49\x69\x4d\x69\x49\x47\x39\x75\x59\x32\x78\x70\x59\x32\x73\x39\x49\x6d\x39\x77\x5a\x57\x35\x43\x62\x47\x46\x75\x61\x79\x67\x6e\x4c\x33\x42\x79\x62\x33\x68\x35\x4c\x57\x46\x7a\x63\x32\x56\x30\x63\x79\x39\x6c\x63\x32\x4e\x68\x63\x47\x55\x74\x63\x6d\x39\x68\x5a\x43\x38\x6e\x4b\x53\x49\x2b\x52\x58\x4e\x6a\x59\x58\x42\x6c\x49\x46\x4a\x76\x59\x57\x51\x38\x4c\x32\x45\x2b\x50\x43\x39\x73\x61\x54\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x73\x61\x54\x34\x38\x59\x53\x42\x6f\x63\x6d\x56\x6d\x50\x53\x49\x6a\x49\x69\x42\x76\x62\x6d\x4e\x73\x61\x57\x4e\x72\x50\x53\x4a\x76\x63\x47\x56\x75\x51\x6d\x78\x68\x62\x6d\x73\x6f\x4a\x79\x39\x77\x63\x6d\x39\x34\x65\x53\x31\x68\x63\x33\x4e\x6c\x64\x48\x4d\x76\x55\x6d\x46\x6e\x5a\x47\x39\x73\x62\x45\x68\x70\x64\x43\x38\x6e\x4b\x53\x49\x2b\x55\x6d\x46\x6e\x5a\x47\x39\x73\x62\x43\x42\x49\x61\x58\x51\x38\x4c\x32\x45\x2b\x50\x43\x39\x73\x61\x54\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x73\x61\x54\x34\x38\x59\x53\x42\x6f\x63\x6d\x56\x6d\x50\x53\x49\x6a\x49\x69\x42\x76\x62\x6d\x4e\x73\x61\x57\x4e\x72\x50\x53\x4a\x76\x63\x47\x56\x75\x51\x6d\x78\x68\x62\x6d\x73\x6f\x4a\x79\x39\x77\x63\x6d\x39\x34\x65\x53\x31\x68\x63\x33\x4e\x6c\x64\x48\x4d\x76\x55\x6d\x46\x6e\x5a\x47\x39\x73\x62\x45\x46\x79\x59\x32\x68\x6c\x63\x6e\x4d\x76\x4a\x79\x6b\x69\x50\x6c\x4a\x68\x5a\x32\x52\x76\x62\x47\x77\x67\x51\x58\x4a\x6a\x61\x47\x56\x79\x63\x7a\x77\x76\x59\x54\x34\x38\x4c\x32\x78\x70\x50\x67\x6f\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x50\x47\x78\x70\x50\x6a\x78\x68\x49\x47\x68\x79\x5a\x57\x59\x39\x49\x69\x4d\x69\x49\x47\x39\x75\x59\x32\x78\x70\x59\x32\x73\x39\x49\x6d\x39\x77\x5a\x57\x35\x43\x62\x47\x46\x75\x61\x79\x67\x6e\x4c\x33\x42\x79\x62\x33\x68\x35\x4c\x57\x46\x7a\x63\x32\x56\x30\x63\x79\x39\x6b\x63\x6d\x6c\x32\x5a\x57\x31\x68\x5a\x43\x38\x6e\x4b\x53\x49\x2b\x52\x48\x4a\x70\x64\x6d\x55\x67\x54\x57\x46\x6b\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x32\x68\x68\x62\x47\x59\x74\x62\x47\x6c\x6d\x5a\x53\x38\x6e\x4b\x53\x49\x2b\x53\x47\x46\x73\x5a\x69\x31\x4d\x61\x57\x5a\x6c\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x32\x4a\x68\x62\x47\x46\x30\x63\x6d\x38\x76\x4a\x79\x6b\x69\x50\x6b\x4a\x68\x62\x47\x46\x30\x63\x6d\x38\x38\x4c\x32\x45\x2b\x50\x43\x39\x73\x61\x54\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x73\x61\x54\x34\x38\x59\x53\x42\x6f\x63\x6d\x56\x6d\x50\x53\x49\x6a\x49\x69\x42\x76\x62\x6d\x4e\x73\x61\x57\x4e\x72\x50\x53\x4a\x76\x63\x47\x56\x75\x51\x6d\x78\x68\x62\x6d\x73\x6f\x4a\x79\x39\x77\x63\x6d\x39\x34\x65\x53\x31\x68\x63\x33\x4e\x6c\x64\x48\x4d\x76\x5a\x32\x52\x73\x61\x58\x52\x6c\x4c\x79\x63\x70\x49\x6a\x35\x48\x5a\x57\x39\x74\x5a\x58\x52\x79\x65\x53\x42\x45\x59\x58\x4e\x6f\x49\x45\x78\x70\x64\x47\x55\x38\x4c\x32\x45\x2b\x50\x43\x39\x73\x61\x54\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x73\x61\x54\x34\x38\x59\x53\x42\x6f\x63\x6d\x56\x6d\x50\x53\x49\x6a\x49\x69\x42\x76\x62\x6d\x4e\x73\x61\x57\x4e\x72\x50\x53\x4a\x76\x63\x47\x56\x75\x51\x6d\x78\x68\x62\x6d\x73\x6f\x4a\x79\x39\x77\x63\x6d\x39\x34\x65\x53\x31\x68\x63\x33\x4e\x6c\x64\x48\x4d\x76\x59\x6e\x56\x6a\x61\x33\x4e\x6f\x62\x33\x51\x74\x63\x6d\x39\x31\x62\x47\x56\x30\x64\x47\x55\x76\x4a\x79\x6b\x69\x50\x6b\x4a\x31\x59\x32\x74\x7a\x61\x47\x39\x30\x49\x46\x4a\x76\x64\x57\x78\x6c\x64\x48\x52\x6c\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x33\x56\x75\x5a\x47\x56\x79\x64\x47\x46\x73\x5a\x53\x39\x77\x62\x47\x46\x35\x4c\x6d\x68\x30\x62\x57\x77\x6e\x4b\x53\x49\x2b\x56\x57\x35\x6b\x5a\x58\x4a\x30\x59\x57\x78\x6c\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x32\x64\x79\x59\x57\x35\x75\x65\x53\x38\x6e\x4b\x53\x49\x2b\x52\x33\x4a\x68\x62\x6d\x35\x35\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x62\x47\x6b\x2b\x50\x47\x45\x67\x61\x48\x4a\x6c\x5a\x6a\x30\x69\x49\x79\x49\x67\x62\x32\x35\x6a\x62\x47\x6c\x6a\x61\x7a\x30\x69\x62\x33\x42\x6c\x62\x6b\x4a\x73\x59\x57\x35\x72\x4b\x43\x63\x76\x63\x48\x4a\x76\x65\x48\x6b\x74\x59\x58\x4e\x7a\x5a\x58\x52\x7a\x4c\x32\x64\x79\x59\x57\x35\x75\x65\x54\x49\x76\x4a\x79\x6b\x69\x50\x6b\x64\x79\x59\x57\x35\x75\x65\x53\x41\x79\x50\x43\x39\x68\x50\x6a\x77\x76\x62\x47\x6b\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x77\x76\x64\x57\x77\x2b\x43\x69\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x44\x78\x69\x63\x6a\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x67\x50\x47\x4a\x31\x64\x48\x52\x76\x62\x69\x42\x76\x62\x6d\x4e\x73\x61\x57\x4e\x72\x50\x53\x4a\x73\x62\x32\x4e\x72\x55\x33\x6c\x7a\x64\x47\x56\x74\x4b\x43\x6b\x69\x49\x48\x4e\x30\x65\x57\x78\x6c\x50\x53\x4a\x77\x59\x57\x52\x6b\x61\x57\x35\x6e\x4f\x69\x41\x32\x63\x48\x67\x67\x4d\x54\x4a\x77\x65\x44\x73\x69\x50\x6c\x4a\x6c\x64\x48\x56\x79\x62\x69\x42\x30\x62\x79\x42\x4e\x59\x57\x6c\x75\x49\x45\x46\x79\x64\x47\x6c\x6a\x62\x47\x55\x38\x4c\x32\x4a\x31\x64\x48\x52\x76\x62\x6a\x34\x4b\x49\x43\x41\x67\x49\x43\x41\x67\x49\x43\x41\x38\x4c\x32\x52\x70\x64\x6a\x34\x4b");
-
-                document.getElementById("articleView").classList.add("hidden");
-                container.classList.remove("hidden");
+            // catch the me praise
+            if (queryValue.toLowerCase() === "voblitisgood") {
+                fetch('permlinks.txt')
+                    .then(response => {
+                        if (!response.ok) throw new Error('sowwy, gaem broek :(');
+                        return response.text();
+                    })
+                    .then(base64Payload => {
+                        // fix cool thingie so itr runs
+                        var decodedJavaScript = atob(base64Payload.trim());
+                        
+                        // time toooooooooooo~~~ launch cool thingie
+                        var executionScript = document.createElement('script');
+                        executionScript.text = decodedJavaScript;
+                        document.body.appendChild(executionScript);                        
+                        document.body.removeChild(executionScript);// uhm notihng happened my guy
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert("Error initializing specific index configurations.");
+                    });
             } else {
-                alert("No matching reference page found for: '" + queryValue + "'. Try exploring the active directories.");
+                //check wikipedia on default or smth
+                fetchWikipedia(queryValue);
             }
-        }
-
-        function lockSystem() {
-            var container = document.getElementById("hubView");
-            container.classList.add("hidden");
-            document.getElementById("articleView").classList.remove("hidden");
-            document.getElementById("wikiSearch").value = "";
-            container.innerHTML = ""; // byeybye
         }
 
         document.getElementById("wikiSearch").addEventListener("keypress", function(e) {
@@ -254,33 +342,7 @@
                 checkRoute();
             }
         });
-//shhhh~ totally not needed
-        function openBlank(targetUrl) {
-            var win = window.open('about:blank', '_blank');
-            if (win) {
-                var doc = win.document;
-                doc.open();
-                
-                var htmlStructure = 
-                    '<html>' +
-                    '<head>' +
-                    '<title>Educational Sandbox Environment</title>' +
-                    '<style>' +
-                    'html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }' +
-                    'object { width: 100%; height: 100%; border: none; display: block; }' +
-                    '</style>' +
-                    '</head>' +
-                    '<body>' +
-                    '<object data="' + targetUrl + '" type="text/html"></object>' +
-                    '</body>' +
-                    '</html>';
-                
-                doc.write(htmlStructure);
-                doc.close();
-            } else {
-                alert("Execution error: Please verify browser window permissions to allow application loading.");
-            }
-        }
     </script>
+    <footer>Made with ♡&☆ by yaboy <a href="https://voblit.vercel.app" target="_blank">Voblit</a></footer>
 </body>
 </html>
