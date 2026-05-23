@@ -15,6 +15,8 @@
             --link-hover: #23468c;
             --accent-red: #b32424;
             --blog-accent: #008559;
+            --summary-bg: #fafbfc;
+            --summary-border: #cbd5e1;
         }
 
         * {
@@ -133,6 +135,36 @@
             margin: 24px 0 14px;
             padding-bottom: 6px;
             color: #000000;
+        }
+
+        /* Summary Panel Design Box Styling */
+        .key-points-panel {
+            background-color: var(--summary-bg);
+            border: 1px solid var(--summary-border);
+            border-left: 4px solid var(--link-color);
+            padding: 14px 18px;
+            margin: 18px 0;
+            border-radius: 4px;
+        }
+
+        .key-points-title {
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .key-points-list {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .key-points-list li {
+            font-size: 13.5px;
+            color: #2b2d31;
+            margin-bottom: 4px;
         }
 
         /* Blog Styling */
@@ -268,6 +300,16 @@
             document.getElementById("articleDynamicContent").innerHTML = blogContent;
         }
         loadBlog();
+
+
+        function generateBullets(text) {
+            if (!text) return ["No overview text found to summarize."];
+            let rawString = text.replace(/<\/?[^>]+(>|$)/g, "").trim();
+            let splitSentences = rawString.split(/(?<=[.!?])\s+/);
+            let filtered = splitSentences.filter(item => item.trim().length > 15);
+            return filtered.length > 0 ? filtered.slice(0, 3) : [rawString.substring(0, 130) + "..."];
+        }
+
         function fetchWikipedia(pageTitle) {
             var targetContent = document.getElementById("articleDynamicContent");
             targetContent.innerHTML = '<p class="loading-text">Querying Wikipedia REST API database endpoints...</p>';
@@ -283,9 +325,21 @@
                     return response.json();
                 })
                 .then(data => {
+                    let textSource = data.extract || "";
+                    let highlights = generateBullets(textSource);
+                    let bulletItemsHTML = highlights.map(str => `<li>${str}</li>`).join('');
+
                     targetContent.innerHTML = `
                         <p><i>Live source from Wikipedia, the free encyclopedia</i></p>
                         <h2>${data.title}</h2>
+
+                        <div class="key-points-panel">
+                            <div class="key-points-title">💡 Quick Key Points Summary</div>
+                            <ul class="key-points-list">
+                                ${bulletItemsHTML}
+                            </ul>
+                        </div>
+
                         ${data.thumbnail ? `<img src="${data.thumbnail.source}" style="float: right; margin: 0 0 15px 15px; border: 1px solid #a2a9b1; max-width: 200px;" alt="Wikipedia Visual Reference">` : ''}
                         <p>${data.extract_html || data.extract}</p>
                         <br style="clear: both;">
@@ -303,7 +357,7 @@
                 });
         }
 
-        // INTEGRATED ROUTER DISPATCHER
+
         function checkRoute() {
             var inputField = document.getElementById("wikiSearch");
             var queryValue = inputField.value.trim();
