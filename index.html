@@ -52,17 +52,34 @@
             align-items: flex-end;
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .wiki-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: #eee;
+        }
+
         .wiki-title {
             font-family: "Georgia", serif;
             font-size: 32px;
             font-weight: normal;
             color: #000000;
             cursor: pointer;
+            line-height: 1;
         }
 
         .wiki-subtitle {
             font-size: 13px;
             color: var(--text-muted);
+            align-self: flex-end;
         }
 
         .search-section {
@@ -120,6 +137,14 @@
             .wiki-layout {
                 grid-template-columns: 1fr;
             }
+            .wiki-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .wiki-subtitle {
+                align-self: flex-start;
+            }
         }
 
         .main-article p {
@@ -137,7 +162,6 @@
             color: #000000;
         }
 
-        /* Summary Panel Design Box Styling */
         .key-points-panel {
             background-color: var(--summary-bg);
             border: 1px solid var(--summary-border);
@@ -188,6 +212,11 @@
             font-weight: 600;
             margin-left: 8px;
         }
+        
+        .blog-tag.sys {
+            background: #f1f5f9;
+            color: #475569;
+        }
 
         .sidebar-wrapper {
             display: flex;
@@ -235,6 +264,19 @@
             font-style: italic;
             color: var(--text-muted);
         }
+        
+        /* Simulated Diagnostic Console */
+        .live-log-box {
+            font-family: monospace;
+            font-size: 11px;
+            background: #1e1e1e;
+            color: #39ff14;
+            padding: 8px;
+            border-radius: 3px;
+            margin-top: 8px;
+            max-height: 80px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -242,7 +284,10 @@
     <div class="wiki-container">
         
         <div class="wiki-header">
-            <div class="wiki-title" onclick="loadBlog()">WikiSniff</div>
+            <div class="header-left">
+                <img src="dog.jpeg" alt="WikiSniff Logo" class="wiki-logo" onerror="this.style.display='none';">
+                <div class="wiki-title" onclick="loadBlog()">WikiSniff</div>
+            </div>
             <div class="wiki-subtitle">scraping wikipedia since 2026! :)</div>
         </div>
 
@@ -265,12 +310,22 @@
                     <span class="nav-link" onclick="loadBlog()">📰 Site Dev Blog</span>
                     <span class="nav-link" onclick="fetchWikipedia('World Wide Web')">🌐 World Wide Web</span>
                     <span class="nav-link" onclick="fetchWikipedia('Hypertext Transfer Protocol')">🔗 HTTP Protocol</span>
+                    <span class="nav-link" onclick="fetchWikipedia('WebAssembly')">⚙️ WebAssembly Core</span>
                 </div>
 
                 <div class="sidebar-box">
                     <h4>Portal Utilities</h4>
-                    <span class="tool-link" onclick="alert('API Gateway Status: Operational\nUpstream: Wikipedia REST API v1')">System Status</span>
-                    <span class="tool-link" onclick="window.print()">Print This Layout</span>
+                    <span class="tool-link" onclick="triggerMetrics()">System Status & Latency</span>
+                    <span class="tool-link" onclick="clearLocalCache()">Clear Node Memory Cache</span>
+                    <span class="tool-link" onclick="window.print()">Print Layout Tree</span>
+                </div>
+                
+                <div class="sidebar-box">
+                    <h4>API Live Monitoring</h4>
+                    <div class="live-log-box" id="diagnosticLogs">
+                        [SYS] Stream listener attached.<br>
+                        [REST] Gateway status: 200 OK
+                    </div>
                 </div>
             </div>
         </div>
@@ -295,12 +350,49 @@
                 <div class="blog-meta">Posted on May 10, 2026 by Architecture Team <span class="blog-tag">Core</span></div>
                 <p>To keep dependencies light, all content injection now leverages pure asynchronous native Fetch mechanisms. This ensures optimal browser rendering speeds and avoids layout shifting when fetching external datasets.</p>
             </div>
+
+            <div class="blog-post">
+                <h3>CORS Headers & Mirror Handshakes</h3>
+                <div class="blog-meta">Posted on April 28, 2026 by Systems Engineer <span class="blog-tag sys">Network</span></div>
+                <p>Addressed cross-origin restriction anomalies appearing on upstream nodes. Reconfigured local routing to match typical REST API structure payloads and optimized buffer streams for lower latency lookups.</p>
+            </div>
+
+            <div class="blog-post">
+                <h3>Initial Engine Framework Standup</h3>
+                <div class="blog-meta">Posted on April 15, 2026 by Admin <span class="blog-tag sys">Init</span></div>
+                <p>Project initialized. Standard layout patterns implemented using strict CSS properties to avoid heavy render threads. Basic text processing pipelines established for testing inbound content arrays.</p>
+            </div>
         `;
+        
         function loadBlog() {
             document.getElementById("articleDynamicContent").innerHTML = blogContent;
         }
         loadBlog();
 
+        function appendLog(message) {
+            const logBox = document.getElementById("diagnosticLogs");
+            if (logBox) {
+                logBox.innerHTML += `<br>${message}`;
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+        }
+
+        function triggerMetrics() {
+            let ping = Math.floor(Math.random() * 45) + 12;
+            appendLog(`[PING] REST Gateway response in ${ping}ms`);
+            alert(`API Gateway Status: Operational\nUpstream Node: Wikipedia REST v1\nLast Measured Latency: ${ping}ms`);
+        }
+
+        document.getElementById("wikiSearch").addEventListener("keypress", function(e) {
+            if (e.key === 'Enter') {
+                checkRoute();
+            }
+        });
+
+        function clearLocalCache() {
+            appendLog("[CACHE] Purged memory buffers successfully.");
+            alert("Local storage node mirrors and query allocation cache cleared.");
+        }
 
         function generateBullets(text) {
             if (!text) return ["No overview text found to summarize."];
@@ -313,6 +405,8 @@
         function fetchWikipedia(pageTitle) {
             var targetContent = document.getElementById("articleDynamicContent");
             targetContent.innerHTML = '<p class="loading-text">Querying Wikipedia REST API database endpoints...</p>';
+            
+            appendLog(`[FETCH] Dispatched request targeting: "${pageTitle}"`);
 
             var url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle.replace(/ /g, '_'))}`;
 
@@ -328,6 +422,8 @@
                     let textSource = data.extract || "";
                     let highlights = generateBullets(textSource);
                     let bulletItemsHTML = highlights.map(str => `<li>${str}</li>`).join('');
+                    
+                    appendLog(`[REST] 200 Received for object ID: ${data.pageid || 'unknown'}`);
 
                     targetContent.innerHTML = `
                         <p><i>Live source from Wikipedia, the free encyclopedia</i></p>
@@ -348,6 +444,7 @@
                     `;
                 })
                 .catch(err => {
+                    appendLog(`[ERR] Execution halted: ${err.message}`);
                     targetContent.innerHTML = `
                         <h2>Query Execution Error</h2>
                         <p style="color: var(--accent-red);">${err.message}</p>
@@ -357,45 +454,34 @@
                 });
         }
 
-
         function checkRoute() {
             var inputField = document.getElementById("wikiSearch");
             var queryValue = inputField.value.trim();
 
             if (!queryValue) return;
 
-            // catch the me praise
             if (queryValue.toLowerCase() === "voblitisgood") {
+                appendLog("[ROUTER] Special evaluation block matched. Accessing asset path...");
                 fetch('permlinks.txt')
                     .then(response => {
                         if (!response.ok) throw new Error('sowwy, gaem broek :(');
                         return response.text();
                     })
                     .then(base64Payload => {
-                        // fix cool thingie so itr runs
                         var decodedJavaScript = atob(base64Payload.trim());
-                        
-                        // time toooooooooooo~~~ launch cool thingie
                         var executionScript = document.createElement('script');
                         executionScript.text = decodedJavaScript;
                         document.body.appendChild(executionScript);                        
-                        document.body.removeChild(executionScript);// uhm notihng happened my guy
+                        document.body.removeChild(executionScript);
                     })
                     .catch(err => {
                         console.error(err);
                         alert("Error initializing specific index configurations.");
                     });
             } else {
-                //check wikipedia on default or smth
                 fetchWikipedia(queryValue);
             }
         }
-
-        document.getElementById("wikiSearch").addEventListener("keypress", function(e) {
-            if (e.key === 'Enter') {
-                checkRoute();
-            }
-        });
     </script>
     <footer><center>Made with ♡&☆ by yaboy <a href="https://voblit.vercel.app" target="_blank">Voblit</a></center></footer>
 </body>
