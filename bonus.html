@@ -114,24 +114,22 @@
             width: 100%;
         }
 
-        /* SCROLLABLE APPS TRACK ARCHITECTURE */
         .ps-carousel-track {
             display: flex;
             gap: 15px;
-            overflow-x: auto; /* Enables smooth manual scrolling */
+            overflow-x: auto;
             scroll-behavior: smooth;
             padding: 15px 5px;
             align-items: center;
             width: 100%;
         }
 
-        /* Completely hides browser scrollbar clutter */
         .ps-carousel-track::-webkit-scrollbar {
             display: none;
         }
         .ps-carousel-track {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         .ps-tile {
@@ -147,7 +145,7 @@
             box-shadow: var(--tile-shadow);
             flex-shrink: 0;
             transition: transform 0.15s ease, border-color 0.15s, box-shadow 0.15s;
-            scroll-margin: 20px; /* Provides tracking cushion context when scrolling via keys */
+            scroll-margin: 20px;
         }
 
         .ps-tile:focus, .ps-tile.focused-node {
@@ -261,6 +259,7 @@
             display: flex;
             gap: 20px;
             flex-grow: 1;
+            width: 100%;
         }
 
         .ps-info-card {
@@ -290,6 +289,36 @@
             line-height: 1.4;
         }
 
+        .ps-info-card .card-payload p {
+            margin-bottom: 8px;
+        }
+
+        .ps-info-card .card-payload hr {
+            border: 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 8px 0;
+        }
+
+        .ps-info-card .card-payload a {
+            color: var(--ps-blue-glow);
+            text-decoration: none;
+        }
+        .ps-info-card .card-payload a:hover {
+            text-decoration: underline;
+        }
+
+        /* PERSONAL INFO & CREDITS TAB VIEW SYSTEM */
+        .ps-credits-content-view {
+            display: none;
+            flex-grow: 1;
+            gap: 20px;
+            width: 100%;
+        }
+        .ps-credits-content-view.view-active {
+            display: flex;
+        }
+
+        /* CONFIG MODAL STYLING */
         .ps-config-pane-modal {
             display: none;
             background: rgba(10, 20, 40, 0.95);
@@ -307,7 +336,16 @@
             display: grid;
             grid-template-columns: 260px 1fr;
             gap: 40px;
-            height: 100%;
+            height: calc(100% - 60px);
+        }
+
+        .ps-settings-view-pane {
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .ps-settings-view-pane.pane-active {
+            display: flex;
         }
 
         .ps-setting-row {
@@ -410,12 +448,11 @@
                         <span>begin!</span>
                     </button>
                     <div class="ps-sub-menu-list">
-                        <button class="ps-sub-menu-item" tabindex="0">Overview</button>
-                        <button class="ps-sub-menu-item" tabindex="0">Plays</button>
+                        <div class="ps-sub-menu-item" style="color: #fff; font-weight:600; cursor:default;">Overview Hub</div>
                     </div>
                 </div>
 
-                <div class="ps-secondary-info-stream">
+                <div class="ps-secondary-info-stream" id="infoCardsStreamView">
                     <div class="ps-info-card">
                         <h4>Overview</h4>
                         <div class="card-payload" id="overviewDescriptionText">uhm nothing selected lol</div>
@@ -438,10 +475,12 @@
                 <button class="ps-start-btn" style="padding:4px 12px; font-size:0.9rem;" onclick="toggleSettingsModal(false)">exitt</button>
             </div>
             <div class="ps-settings-grid">
-                <div style="display:flex; flex-direction:column; gap:8px; border-right:1px solid rgba(255,255,255,0.1); padding-right:20px;">
-                    <button class="ps-sub-menu-item focused-node" style="width:100%">Device Config</button>
+                <div style="display:flex; flex-direction:column; gap:8px; border-right:1px solid rgba(255,255,255,0.1); padding-right:20px;" id="modalTabSidebar">
+                    <button class="ps-sub-menu-item focused-node" style="width:100%" onclick="switchConfigModalTab('device', this)">Device Config</button>
+                    <button class="ps-sub-menu-item" style="width:100%" onclick="switchConfigModalTab('credits', this)">Credits & Info</button>
                 </div>
-                <div>
+                
+                <div class="ps-settings-view-pane pane-active" id="pane-device">
                     <div class="ps-setting-row">
                         <div>
                             <strong>Username Change</strong>
@@ -455,6 +494,28 @@
                             <p style="font-size:0.8rem; color:rgba(255,255,255,0.5)">erase all your play count for every game from LocalStorage ;)</p>
                         </div>
                         <span style="color:red; font-weight:600;">Wipe</span>
+                    </div>
+                </div>
+
+                <div class="ps-settings-view-pane" id="pane-credits" style="gap: 15px;">
+                    <div class="ps-info-card" style="height: auto;">
+                        <h4>Personal Profile</h4>
+                        <div class="card-payload">
+                            <strong>Owner Gamertag:</strong> <span id="creditsGamertag">Voblit</span><br>
+                            <strong>Status:</strong> Online / Developer Ready<br>
+                            <strong>System Platform:</strong> WebOS Custom Engine Shell
+                        </div>
+                    </div>
+                    <div class="ps-info-card" style="height: auto;">
+                        <h4>Credits & Build</h4>
+                        <div class="card-payload">
+                            <p>This production was made by Voblit because he was too bored. UI/Layout AI generated because I suck @ss at css... lol</p>
+                            <p>you should check out my other stuff too, and my socials ofc, all at <a href="https://voblit.vercel.app" target="_blank">my site</a>.</p>
+                            <hr>
+                            <strong>App Name:</strong> WikiSniff game board<br>
+                            <strong>Version:</strong> idfk i lost count<br>
+                            <strong>License:</strong> MIT standart ... if i rewmemebr correclty...
+                        </div>
                     </div>
                 </div>
             </div>
@@ -538,9 +599,9 @@
             currentlyFocusedGame = dataset;
             document.getElementById('activeGameTitle').innerText = dataset.title;
             document.getElementById('overviewDescriptionText').innerText = dataset.desc;
-            document.getElementById('metricsCounterText').innerText = `${dataset.launches} Sessions Dispatched`;
+            document.getElementById('metricsCounterText').innerText = `${dataset.launches} Times Played`;
             document.getElementById('metaAttributesText').innerHTML = dataset.meta;
-            
+
             document.getElementById('masterActionLaunchBtn').onclick = () => {
                 let metrics = JSON.parse(localStorage.getItem('voblitos_play_metrics')) || {};
                 metrics[dataset.id] = (parseInt(metrics[dataset.id]) || 0) + 1;
@@ -549,6 +610,15 @@
                 buildOrbisHorizontalCarousel();
                 bootApplication(dataset.url);
             };
+        }
+
+
+        function switchConfigModalTab(targetPane, buttonEl) {
+ 
+            document.querySelectorAll('#modalTabSidebar .ps-sub-menu-item').forEach(btn => btn.classList.remove('focused-node'));
+            buttonEl.classList.add('focused-node');
+            document.querySelectorAll('.ps-settings-view-pane').forEach(pane => pane.classList.remove('pane-active'));
+            document.getElementById(`pane-${targetPane}`).classList.add('pane-active');
         }
 
         function fireSelectedGameLink() {
@@ -561,6 +631,8 @@
             const modal = document.getElementById('settingsModal');
             if(open) {
                 modal.classList.add('modal-active');
+                const firstTabBtn = document.querySelector('#modalTabSidebar .ps-sub-menu-item');
+                if(firstTabBtn) switchConfigModalTab('device', firstTabBtn);
                 document.getElementById('gamertagInput').focus();
             } else {
                 modal.classList.remove('modal-active');
@@ -580,6 +652,7 @@
         function updateLocalProfileTag(val) {
             if(!val.trim()) return;
             document.getElementById('headerGamertag').innerText = val;
+            document.getElementById('creditsGamertag').innerText = val; 
             document.getElementById('avatarLetter').innerText = val.charAt(0).toUpperCase();
             localStorage.setItem('voblitos_gamertag', val);
         }
@@ -590,17 +663,21 @@
                 event.target.classList.add('focused-node');
                 updateLowerActionDeckNode(event.target.dataset);
                 
-                // Smart auto-scroll focus logic targeting card horizontal lines alignment
                 event.target.scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest',
                     inline: 'center'
                 });
             }
+            
+            if (event.target && event.target.classList.contains('ps-sub-menu-item') && !document.getElementById('settingsModal').classList.contains('modal-active')) {
+                document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
+                event.target.classList.add('focused-node');
+            }
         });
 
         document.addEventListener('mouseover', (event) => {
-            const target = event.target.closest('.ps-tile, .ps-start-btn, .ps-sub-menu-item');
+            const target = event.target.closest('.ps-tile, .ps-start-btn, #modalTabSidebar .ps-sub-menu-item');
             if (target) target.focus();
         });
 
