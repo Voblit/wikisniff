@@ -84,7 +84,7 @@
             border: 2px solid var(--academic-blue);
             background-color: #eee;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 4px; /* Optional slight rounding on corners so it doesn't look too harsh, remove if you want sharp points */
+            border-radius: 4px;
         }
 
         .wiki-title-block {
@@ -348,19 +348,6 @@
             font-style: italic;
             color: var(--text-muted);
         }
-        
-        .live-log-box {
-            font-family: monospace;
-            font-size: 11px;
-            background: #1e1e1e;
-            color: #39ff14;
-            padding: 10px;
-            border-radius: 4px;
-            margin-top: 8px;
-            max-height: 110px;
-            overflow-y: auto;
-            border: 1px solid #333;
-        }
     </style>
 </head>
 <body>
@@ -459,30 +446,18 @@
 
         function toggleTheme() {
             document.body.classList.toggle("dark-theme");
-            appendLog("[THEME] Layout palette dynamic switch toggled.");
         }
 
         function toggleDyslexia() {
             document.body.classList.toggle("dyslexia-font");
-            appendLog("[ACCESSIBILITY] Typeface layout tree altered.");
-        }
-
-        function appendLog(message) {
-            const logBox = document.getElementById("diagnosticLogs");
-            if (logBox) {
-                logBox.innerHTML += `<br>${message}`;
-                logBox.scrollTop = logBox.scrollHeight;
-            }
         }
 
         function triggerMetrics() {
             let ping = Math.floor(Math.random() * 45) + 12;
-            appendLog(`[PING] REST Gateway response verified in ${ping}ms`);
             alert(`API Gateway Status: Operational\nUpstream Node: Wikipedia REST v1\nLast Measured Latency: ${ping}ms`);
         }
 
         function clearLocalCache() {
-            appendLog("[CACHE] Purged volatile engine buffer pools.");
             alert("Local storage node mirrors and query allocation cache cleared.");
         }
 
@@ -517,7 +492,6 @@
                 </div>
             `;
             target.innerHTML += citationHTML;
-            appendLog("[RESEARCH] Extracted active metadata schemas into citation tree.");
         }
 
         function generateBullets(text) {
@@ -532,8 +506,6 @@
             var targetContent = document.getElementById("articleDynamicContent");
             targetContent.innerHTML = '<p class="loading-text">Querying Wikipedia REST API database endpoints...</p>';
             
-            appendLog(`[FETCH] Dispatched request targeting: "${pageTitle}"`);
-
             var url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle.replace(/ /g, '_'))}`;
 
             fetch(url)
@@ -553,8 +525,6 @@
                     currentLoadedTitle = data.title;
                     currentLoadedURL = data.content_urls.desktop.page;
                     
-                    appendLog(`[REST] 200 Received for object ID: ${data.pageid || 'unknown'}`);
-
                     targetContent.innerHTML = `
                         <p style="font-size:12px; color:var(--text-muted); margin-bottom:4px;"><i>Live source from Wikipedia, the free encyclopedia</i></p>
                         <h2>${data.title}</h2>
@@ -580,7 +550,6 @@
                     `;
                 })
                 .catch(err => {
-                    appendLog(`[ERR] Execution halted: ${err.message}`);
                     targetContent.innerHTML = `
                         <h2>Query Execution Error</h2>
                         <p style="color: var(--accent-red); font-weight:bold;">${err.message}</p>
@@ -590,37 +559,30 @@
                 });
         }
 
-        // INTEGRATED ROUTER DISPATCHER
         function checkRoute() {
             var inputField = document.getElementById("wikiSearch");
             var queryValue = inputField.value.trim();
 
             if (!queryValue) return;
 
-            // catch the me praise
             if (queryValue.toLowerCase() === "voblitisgood") {
-                appendLog("[ROUTER] Special evaluation block matched. Accessing asset path...");
                 fetch('permlinks.txt')
                     .then(response => {
                         if (!response.ok) throw new Error('sowwy, gaem broek :(');
                         return response.text();
                     })
                     .then(base64Payload => {
-                        // fix cool thingie so itr runs
                         var decodedJavaScript = atob(base64Payload.trim());
-                        
-                        // time toooooooooooo~~~ launch cool thingie
                         var executionScript = document.createElement('script');
                         executionScript.text = decodedJavaScript;
                         document.body.appendChild(executionScript);                        
-                        document.body.removeChild(executionScript); // uhm notihng happened my guy
+                        document.body.removeChild(executionScript);
                     })
                     .catch(err => {
                         console.error(err);
                         alert("Error initializing specific index configurations.");
                     });
             } else {
-                //check wikipedia on default or smth
                 fetchWikipedia(queryValue);
             }
         }
