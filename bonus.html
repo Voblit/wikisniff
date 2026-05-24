@@ -623,14 +623,18 @@
             });
 
             if (selectedTileElement) {
-                document.querySelectorAll('.ps-tile').forEach(el => el.classList.remove('focused-node'));
+                clearAllGlowHighlights();
                 updateLowerActionDeckNode(selectedTileElement.dataset);
                 selectedTileElement.classList.add('focused-node');
             }
         }
 
+        function clearAllGlowHighlights() {
+            document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
+        }
+
         function selectAndHighlightTile(tileElement) {
-            document.querySelectorAll('.ps-tile').forEach(el => el.classList.remove('focused-node'));
+            clearAllGlowHighlights();
             
             selectedTileElement = tileElement;
             tileElement.classList.add('focused-node');
@@ -674,7 +678,10 @@
                 document.getElementById('gamertagInput').focus();
             } else {
                 modal.classList.remove('modal-active');
-                if(selectedTileElement) selectedTileElement.focus();
+                if(selectedTileElement) {
+                    selectedTileElement.focus();
+                    selectAndHighlightTile(selectedTileElement);
+                }
             }
         }
 
@@ -698,7 +705,7 @@
 
         document.body.addEventListener('focusin', (event) => {
             if (event.target && event.target.classList.contains('ps-tile')) {
-                document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
+                clearAllGlowHighlights();
                 event.target.classList.add('focused-node');
                 selectedTileElement = event.target;
                 updateLowerActionDeckNode(event.target.dataset);
@@ -709,29 +716,23 @@
                     inline: 'center'
                 });
             } else if (event.target && (event.target.classList.contains('ps-start-btn') || event.target.classList.contains('ps-sub-menu-item'))) {
-                document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
+                clearAllGlowHighlights();
                 event.target.classList.add('focused-node');
-                if (selectedTileElement) {
-                    selectedTileElement.classList.add('focused-node');
-                }
             }
         });
 
         document.addEventListener('mouseover', (event) => {
             const target = event.target.closest('.ps-tile');
             if (target) {
-                document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
+                clearAllGlowHighlights();
                 target.classList.add('focused-node');
                 selectedTileElement = target;
                 updateLowerActionDeckNode(target.dataset);
             } else {
                 const actionTarget = event.target.closest('.ps-start-btn, .ps-sub-menu-item');
                 if (actionTarget) {
-                    document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
+                    clearAllGlowHighlights();
                     actionTarget.classList.add('focused-node');
-                    if (selectedTileElement) {
-                        selectedTileElement.classList.add('focused-node');
-                    }
                 }
             }
         });
