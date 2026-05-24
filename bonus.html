@@ -583,6 +583,7 @@
         ];
 
         let currentlyFocusedGame = null;
+        let selectedTileElement = null;
 
         function buildOrbisHorizontalCarousel() {
             let metrics = JSON.parse(localStorage.getItem('voblitos_play_metrics')) || {};
@@ -607,11 +608,13 @@
 
                 squareTile.innerHTML = `<div class="ps-tile-title-fallback">${game.title}</div>`;
                 
-                squareTile.onclick = (event) => {
-                    if (squareTile.classList.contains('focused-node')) {
+                squareTile.onclick = (e) => {
+                    e.stopPropagation();
+                    
+                    if (selectedTileElement === squareTile) {
                         fireSelectedGameLink();
                     } else {
-                        squareTile.focus(); 
+                        selectAndHighlightTile(squareTile);
                     }
                 };
 
@@ -619,8 +622,25 @@
 
                 if(index === 0) {
                     updateLowerActionDeckNode(squareTile.dataset);
+                    selectedTileElement = squareTile;
                     squareTile.classList.add('focused-node');
                 }
+            });
+        }
+
+        function selectAndHighlightTile(tileElement) {
+            document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
+            
+            selectedTileElement = tileElement;
+            tileElement.classList.add('focused-node');
+            tileElement.focus();
+            
+            updateLowerActionDeckNode(tileElement.dataset);
+
+            tileElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
             });
         }
 
@@ -654,8 +674,7 @@
                 document.getElementById('gamertagInput').focus();
             } else {
                 modal.classList.remove('modal-active');
-                const defaultFocus = document.querySelector('.ps-tile.focused-node') || document.querySelector('.ps-tile');
-                if(defaultFocus) defaultFocus.focus();
+                if(selectedTileElement) selectedTileElement.focus();
             }
         }
 
@@ -680,6 +699,7 @@
             if (event.target && event.target.classList.contains('ps-tile')) {
                 document.querySelectorAll('.ps-tile, .ps-start-btn, .ps-sub-menu-item').forEach(el => el.classList.remove('focused-node'));
                 event.target.classList.add('focused-node');
+                selectedTileElement = event.target;
                 updateLowerActionDeckNode(event.target.dataset);
                 
                 event.target.scrollIntoView({
@@ -690,10 +710,15 @@
             }
         });
 
-        document.body.addEventListener('click', (event) => {
-            const target = event.target.closest('.ps-start-btn, .ps-sub-menu-item');
-            if (target) {
-                target.focus();
+        document.addEventListener('mouseover', (event) => {
+            const target = event.target.closest('.ps-tile');
+            if (target && selectedTileElement !== target) {
+                document.getElementById('activeGameTitle').innerText = target.dataset.title;
+                document.getElementById('overviewDescriptionText').innerText = target.dataset.desc;
+                document.getElementById('metricsCounterText').innerText = `${target.dataset.launches} Sessions Dispatched`;
+                document.getElementById('metaAttributesText').innerHTML = target.dataset.meta;
+            } else if (!target && selectedTileElement) {
+                updateLowerActionDeckNode(selectedTileElement.dataset);
             }
         });
 
@@ -720,8 +745,7 @@
                 e.preventDefault();
             }
             if(e.key === 'ArrowUp' && (document.activeElement.classList.contains('ps-start-btn') || document.activeElement.classList.contains('ps-sub-menu-item'))) {
-                const targetTile = document.querySelector('.ps-tile.focused-node') || document.querySelector('.ps-tile');
-                if(targetTile) targetTile.focus();
+                if(selectedTileElement) selectedTileElement.focus();
                 e.preventDefault();
             }
         });
@@ -733,8 +757,7 @@
                 document.getElementById('gamertagInput').value = cacheName;
                 updateLocalProfileTag(cacheName);
             }
-            const firstElement = document.querySelector('.ps-tile');
-            if(firstElement) firstElement.focus();
+            if(selectedTileElement) selectedTileElement.focus();
         });
 
         const canvas = document.getElementById("appViewportCanvas");
@@ -751,8 +774,10 @@
             canvas.style.display = "none";
             buildOrbisHorizontalCarousel();
             setTimeout(() => {
-                const fallbackTile = document.querySelector('.ps-tile.focused-node') || document.querySelector('.ps-tile');
-                if(fallbackTile) fallbackTile.focus();
+                if(selectedTileElement) {
+                    selectedTileElement.classList.add('focused-node');
+                    selectedTileElement.focus();
+                }
             }, 50);
         }
 
