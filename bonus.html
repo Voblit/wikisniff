@@ -114,24 +114,22 @@
             width: 100%;
         }
 
-        /* SCROLLABLE APPS TRACK ARCHITECTURE */
         .ps-carousel-track {
             display: flex;
             gap: 15px;
-            overflow-x: auto; /* Enables smooth manual scrolling */
+            overflow-x: auto;
             scroll-behavior: smooth;
             padding: 15px 5px;
             align-items: center;
             width: 100%;
         }
 
-        /* Completely hides browser scrollbar clutter */
         .ps-carousel-track::-webkit-scrollbar {
             display: none;
         }
         .ps-carousel-track {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         .ps-tile {
@@ -147,7 +145,7 @@
             box-shadow: var(--tile-shadow);
             flex-shrink: 0;
             transition: transform 0.15s ease, border-color 0.15s, box-shadow 0.15s;
-            scroll-margin: 20px; /* Provides tracking cushion context when scrolling via keys */
+            scroll-margin: 20px;
         }
 
         .ps-tile:focus, .ps-tile.focused-node {
@@ -290,6 +288,19 @@
             line-height: 1.4;
         }
 
+        .ps-info-card .card-payload a {
+            color: var(--ps-blue-glow);
+            text-decoration: none;
+        }
+        .ps-info-card .card-payload a:hover {
+            text-decoration: underline;
+        }
+        .ps-info-card hr {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin: 8px 0;
+        }
+
         .ps-config-pane-modal {
             display: none;
             background: rgba(10, 20, 40, 0.95);
@@ -298,6 +309,7 @@
             top: 100px; left: 100px; right: 100px; bottom: 100px;
             z-index: 50;
             padding: 40px;
+            overflow-y: auto;
         }
         .ps-config-pane-modal.modal-active {
             display: block;
@@ -307,7 +319,13 @@
             display: grid;
             grid-template-columns: 260px 1fr;
             gap: 40px;
-            height: 100%;
+            min-height: calc(100% - 60px);
+        }
+
+        .ps-settings-view-pane {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
         }
 
         .ps-setting-row {
@@ -365,8 +383,7 @@
         #appViewportCanvas {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background: #000;
             z-index: 99999;
         }
@@ -420,8 +437,8 @@
             <div class="ps-sys-icons">
                 <span onclick="toggleSettingsModal(true)">Config</span>
                 <div class="ps-profile-node">
-                    <div class="ps-avatar-box" id="avatarLetter">V</div>
-                    <span id="headerGamertag">Voblit</span>
+                    <div class="ps-avatar-box" id="avatarLetter">G</div>
+                    <span id="headerGamertag">Guest</span>
                 </div>
             </div>
             <div class="ps-clock-node" id="psClock">12:00 PM</div>
@@ -478,7 +495,7 @@
                             <strong>Username Change</strong>
                             <p style="font-size:0.8rem; color:rgba(255,255,255,0.5)">Updeat ur name</p>
                         </div>
-                        <input type="text" class="ps-input" id="gamertagInput" value="Voblit" onchange="updateLocalProfileTag(this.value)">
+                        <input type="text" class="ps-input" id="gamertagInput" value="yourname" onchange="updateLocalProfileTag(this.value)">
                     </div>
                     <div class="ps-setting-row" style="cursor:pointer;" onclick="resetPlayTrackingStats()">
                         <div>
@@ -487,6 +504,29 @@
                         </div>
                         <span style="color:red; font-weight:600;">Wipe</span>
                     </div>
+
+                    <div class="ps-settings-view-pane" id="pane-credits" style="gap: 15px; margin-top: 25px;">
+                        <div class="ps-info-card" style="height: auto; flex: none;">
+                            <h4>Personal Profile</h4>
+                            <div class="card-payload">
+                                <strong>Owner Gamertag:</strong> <span id="creditsGamertag">Voblit</span><br>
+                                <strong>Status:</strong> probly workign 🤷‍♂️<br>
+                                <strong>System Platform:</strong> scraps left of my sanity + sh*tty html + the hopes and dreams of the internet crushed into weights.bin
+                            </div>
+                        </div>
+                        <div class="ps-info-card" style="height: auto; flex: none;">
+                            <h4>Credits & Build</h4>
+                            <div class="card-payload">
+                                <p>This production was made by Voblit because he was too bored. UI/Layout AI generated because I suck @ss at css... lol</p>
+                                <p>you should check out my other stuff too, and my socials ofc, all at <a href="https://voblit.vercel.app" target="_blank">my site</a>.</p>
+                                <hr>
+                                <strong>App Name:</strong> WikiSniff game board<br>
+                                <strong>Version:</strong> idfk i lost count<br>
+                                <strong>License:</strong> MIT standart ... if i rewmemebr correclty...
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -507,7 +547,7 @@
     <div id="appViewportCanvas">
         <div class="viewport-dashboard-home-tray">
             <button tabindex="0" class="ps-home-btn" id="closeAppBtn" onclick="killActiveApplication()">
-                <span style="font-size: 1rem;">🏠</span> Home
+                <span style="font-size: 1rem;">🏠</span>
             </button>
         </div>
         <iframe id="gameRunnerFrame" class="game-runner-frame" allow="fullscreen; autoplay"></iframe>
@@ -529,12 +569,12 @@
             { id: "ragdollhit", title: "Ragdoll Hit", desc: "Engage in physics-driven, ragdoll combat. Time your punches, kicks, and environmental interactions to down your targets while keeping your own balance.", meta: "Genre: Physics Combat Sandbox<br>Developer: Experimental Play", url: "https://cdn.startmyeducation.us/RagdollHit/", bg: "./icons/ragdollh.png" },
             { id: "drivemad", title: "Drive Mad", url: "https://cdn.startmyeducation.us/drivemad/", desc: "A physics-based driving game where you maneuver custom off-road trucks across creative hazard tracks filled with ramps, loops, and fragile bridges.", meta: "Genre: Driving Physics Stunt<br>Developer: Martin Magni", bg: "./icons/drivemad.png" },
             { id: "halflife", title: "Half-Life", url: "https://cdn.startmyeducation.us/half-life/", desc: "The legendary sci-fi shooter. Survive an anomaly containment breach inside a remote research facility using smart environmental puzzle-solving and defense strategies.", meta: "Genre: First-Person Sci-Fi Shooter<br>Developer: Valve Corporation", bg: "./icons/halflife.png" },
-            { id: "gdlite", title: "Geometry Dash Lite", url: "https://cdn.startmyeducation.us/gdlite/", desc: "Jump, fly, and flip your way through dangerous spike grids. Time your actions carefully to match the fast rhythm tracks in this intense platformer.", meta: "Genre: Rhythm Platformer Rythmic<br>Developer: RobTop Games", bg: "./icons/gdlite.png" },
+            { id: "gdlite", title: "Geometry Dash Lite", url: "https://cdn.startmyeducation.us/gdlite/", desc: "Jump, fly, and flip your way through dangerous spike grids. Time your actions carefully to match the fast rhythm tracks in this intense platformer.", meta: "Genre: Rhythm Platformer Rythmic<br>Developer: RobTop Games", url: "https://cdn.startmyeducation.us/gdlite/", bg: "./icons/gdlite.png" },
             { id: "undertale", title: "Undertale", url: "https://cdn.startmyeducation.us/undertale/play.html", desc: "A unique roleplaying game where you navigate an underground realm of monsters. Use creative negotiation systems to resolve encounters without relying on combat.", meta: "Genre: Narratively Rich RPG<br>Developer: Toby Fox", bg: "./icons/undertale.png" },
             { id: "granny", title: "Granny", url: "https://cdn.startmyeducation.us/granny/", desc: "A tense first-person horror escape game. Search a quiet, locked house for keys and tools while moving carefully to avoid alerting your pursuer.", meta: "Genre: First-Person Stealth Horror<br>Developer: DVloper", bg: "./icons/granny.png" },
             { id: "baldi", title: "Baldi's Basics", url: "https://cdn.startmyeducation.us/baldi/", desc: "A meta horror game disguised as a 90s educational edutainment title. Collect notebooks while solving math problems and avoiding the quick-stepping Baldi.", meta: "Genre: Survival Horror / Edutainment<br>Developer: Basically Games", bg: "./icons/baldi.png" },
-            { id: "subwaysurfers", title: "Subway Surfers", url: "https://cdn.startmyeducation.us/surfers/", desc: "Dash and dodge oncoming trains as fast as you can. Help Jake, Tricky & Fresh escape from the grumpy Inspector and his dog in this endless runner classic.", meta: "Genre: Endless Arcade Runner<br>Developer: Kiloo / SYBO Games", bg: "./icons/surfers.png" },
-            { id: "crossyroad", title: "Crossy Road", url: "https://cdn.startmyeducation.us/crossyroad/index.html?world=original", desc: "Why did the Chicken cross the road? Dodge traffic, hop across logs, and evade train tracks in an endless voxel-style hopping adventure.", meta: "Genre: Endless Arcade Hopper<br>Developer: Hipster Whale", bg: "./icons/crossyroad.png" },
+            { id: "subwaysurfers", title: "Subway Surfers", url: "https://cdn.startmyeducation.us/surfers/", desc: "Dash and dodge oncoming trains as fast as you can. Help Jake, Tricky & Fresh escape from the grumpy Inspector and his dog in this endless runner classic.", meta: "Genre: Endless Arcade Runner<br>Developer: Kiloo / SYBO Games", url: "https://cdn.startmyeducation.us/surfers/", bg: "./icons/surfers.png" },
+            { id: "crossyroad", title: "Crossy Road", url: "https://cdn.startmyeducation.us/crossyroad/index.html?world=original", desc: "Why did the Chicken cross the road? Dodge traffic, hop across logs, and evade train tracks in an endless voxel-style hopping adventure.", meta: "Genre: Endless Arcade Hopper<br>Developer: Hipster Whale", url: "https://cdn.startmyeducation.us/crossyroad/index.html?world=original", bg: "./icons/crossyroad.png" },
             { id: "slopehd", title: "Slope HD", url: "https://cdn.startmyeducation.us/SlopeHD/", desc: "Drive a ball down an endless, steep neon downhill track. Avoid sudden drops, moving walls, and red barriers as your speed climbs dangerously high.", meta: "Genre: Physics Arcade Runner<br>Developer: Rob Kay", bg: "./icons/slope.png" },
             { id: "tetris", title: "Tetris", url: "https://cdn.startmyeducation.us/tetris/", desc: "The definitive arcade puzzle game. Rotate, move, and drop falling tetrominoes to clear horizontal rows and prevent your matrix from stacking to the top.", meta: "Genre: Tile-Matching Puzzle<br>Developer: Alexey Pajitnov", bg: "./icons/tetris.png" },
             { id: "mario64", title: "Super Mario 64", url: "https://cdn.startmyeducation.us/mario64/", desc: "The foundational 3D platformer. Explore Princess Peach's castle, jump through magical paintings, and collect Power Stars to defeat Bowser.", meta: "Genre: Classic 3D Platformer<br>Developer: Nintendo", bg: "./icons/mario64.png" },
@@ -566,7 +606,15 @@
                 squareTile.dataset.launches = metrics[game.id] || 0;
 
                 squareTile.innerHTML = `<div class="ps-tile-title-fallback">${game.title}</div>`;
-                squareTile.onclick = () => fireSelectedGameLink();
+            
+                squareTile.onclick = (event) => {
+                    if (squareTile.classList.contains('focused-node')) {
+                        fireSelectedGameLink();
+                    } else {
+                        squareTile.focus();
+                    }
+                };
+
                 track.appendChild(squareTile);
 
                 if(index === 0) {
@@ -605,7 +653,7 @@
                 document.getElementById('gamertagInput').focus();
             } else {
                 modal.classList.remove('modal-active');
-                const defaultFocus = document.querySelector('.ps-tile');
+                const defaultFocus = document.querySelector('.ps-tile.focused-node') || document.querySelector('.ps-tile');
                 if(defaultFocus) defaultFocus.focus();
             }
         }
@@ -622,6 +670,8 @@
             if(!val.trim()) return;
             document.getElementById('headerGamertag').innerText = val;
             document.getElementById('avatarLetter').innerText = val.charAt(0).toUpperCase();
+            const creditsTag = document.getElementById('creditsGamertag');
+            if(creditsTag) creditsTag.innerText = val;
             localStorage.setItem('voblitos_gamertag', val);
         }
 
@@ -639,9 +689,9 @@
             }
         });
 
-        // MANUALLY TRIGGER FOCUS SOLELY ON EXPLICIT USER CLICK INSTEAD OF HOVER SCROLLING
+
         document.body.addEventListener('click', (event) => {
-            const target = event.target.closest('.ps-tile, .ps-start-btn, .ps-sub-menu-item');
+            const target = event.target.closest('.ps-start-btn, .ps-sub-menu-item');
             if (target) {
                 target.focus();
             }
@@ -659,6 +709,10 @@
             }
             if (e.key === 'ArrowLeft' && currentIndex > 0) {
                 tiles[currentIndex - 1].focus();
+                e.preventDefault();
+            }
+            if (e.key === 'Enter' && currentIndex !== -1) {
+                fireSelectedGameLink();
                 e.preventDefault();
             }
             if(e.key === 'ArrowDown' && document.activeElement.classList.contains('ps-tile')) {
