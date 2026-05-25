@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/game-proxy/:path*",
+      "destination": "/api/proxy/:path*"
+    }
+  ]
+}
