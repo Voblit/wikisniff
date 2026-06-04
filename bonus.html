@@ -295,7 +295,7 @@
         .ps-info-card .card-payload a:hover {
             text-decoration: underline;
         }
-        .ps-info-card hr {
+        .ps-info-card .card-payload hr {
             border: none;
             border-top: 1px solid rgba(255,255,255,0.1);
             margin: 8px 0;
@@ -425,7 +425,8 @@
         }
 
         .game-runner-frame {
-            width: 100%; height: 100%; border: none; display: block;
+            width: 100%;
+            height: 100%; border: none; display: block;
         }
     </style>
 </head>
@@ -437,11 +438,11 @@
             <div class="ps-sys-icons">
                 <span onclick="toggleSettingsModal(true)">Config</span>
                 <div class="ps-profile-node">
-                    <div class="ps-avatar-box" id="avatarLetter">V</div>
-                    <span id="headerGamertag">Voblit</span>
+                    <div class="ps-avatar-box" id="avatarLetter">[cite: 81]V</div>
+                    <span id="headerGamertag">[cite: 81]Voblit</span>
                 </div>
             </div>
-            <div class="ps-clock-node" id="psClock">12:00 PM</div>
+            <div class="ps-clock-node" id="psClock">[cite: 81]12:00 PM</div>
         </header>
 
         <main class="ps-main-carousel-container">
@@ -449,7 +450,7 @@
         </main>
 
         <section class="ps-dynamic-action-zone">
-            <h2 class="ps-active-title-header" id="activeGameTitle">faster then you can draw it...</h2>
+            <h2 class="ps-active-title-header" id="activeGameTitle">[cite: 82]faster then you can draw it...</h2>
             
             <div class="ps-action-gate-split">
                 <div class="ps-primary-action-pane">
@@ -458,23 +459,25 @@
                         <span>begin!</span>
                     </button>
                     <div class="ps-sub-menu-list">
-                        <button class="ps-sub-menu-item" tabindex="-1">Overview</button>
-                        <button class="ps-sub-menu-item" tabindex="-1">Plays</button>
+                        <button class="ps-sub-menu-item" tabindex="-1">[cite: 84]Overview</button>
+                        <button class="ps-sub-menu-item" tabindex="-1">[cite: 84]Plays</button>
                     </div>
                 </div>
 
                 <div class="ps-secondary-info-stream">
                     <div class="ps-info-card">
                         <h4>Overview</h4>
-                        <div class="card-payload" id="overviewDescriptionText">uhm nothing selected lol</div>
+                        <div class="card-payload" id="overviewDescriptionText">[cite: 85]uhm nothing selected lol</div>
                     </div>
+              
                     <div class="ps-info-card">
                         <h4>Analytics</h4>
-                        <div class="card-payload" id="metricsCounterText">you have yet to play</div>
+                        <div class="card-payload" id="metricsCounterText">[cite: 86]you have yet to play</div>
                     </div>
+                   
                     <div class="ps-info-card">
                         <h4>Info</h4>
-                        <div class="card-payload" id="metaAttributesText">no clue :|</div>
+                        <div class="card-payload" id="metaAttributesText">[cite: 87]no clue :|</div>
                     </div>
                 </div>
             </div>
@@ -483,46 +486,46 @@
         <div class="ps-config-pane-modal" id="settingsModal">
             <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px; margin-bottom:20px;">
                 <h3>Sys Config</h3>
-                <button class="ps-start-btn" style="padding:4px 12px; font-size:0.9rem;" onclick="toggleSettingsModal(false)">exitt</button>
+                <button class="ps-start-btn" style="padding:4px 12px; font-size:0.9rem;" onclick="toggleSettingsModal(false)">[cite: 89, 90]exitt</button>
             </div>
             <div class="ps-settings-grid">
                 <div style="display:flex; flex-direction:column; gap:8px; border-right:1px solid rgba(255,255,255,0.1); padding-right:20px;">
-                    <button class="ps-sub-menu-item focused-node" style="width:100%">Device Config</button>
+                    <button class="ps-sub-menu-item focused-node" style="width:100%">[cite: 91]Device Config</button>
                 </div>
                 <div>
                     <div class="ps-setting-row">
                         <div>
                             <strong>Username Change</strong>
-                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.5)">Updeat ur name</p>
+                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.5)">[cite: 92, 93]Updeat ur name</p>
                         </div>
                         <input type="text" class="ps-input" id="gamertagInput" value="Voblit" onchange="updateLocalProfileTag(this.value)">
                     </div>
                     <div class="ps-setting-row" style="cursor:pointer;" onclick="resetPlayTrackingStats()">
                         <div>
                             <strong>Clear analytics</strong>
-                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.5)">erase all your play count for every game from LocalStorage ;)</p>
+                            <p style="font-size:0.8rem; color:rgba(255,255,255,0.5)">[cite: 94, 95]erase all your play count for every game from LocalStorage ;)</p>
                         </div>
-                        <span style="color:red; font-weight:600;">Wipe</span>
+                        <span style="color:red; font-weight:600;">[cite: 95, 96]Wipe</span>
                     </div>
 
                     <div class="ps-settings-view-pane" id="pane-credits" style="gap: 15px; margin-top: 25px;">
                         <div class="ps-info-card" style="height: auto; flex: none;">
                             <h4>Personal Profile</h4>
                             <div class="card-payload">
-                                <strong>Owner Gamertag:</strong> <span id="creditsGamertag">Voblit</span><br>
-                                <strong>Status:</strong> probly workign 🤷‍♂️<br>
-                                <strong>System Platform:</strong> scraps left of my sanity + sh*tty html + the hopes and dreams of the internet crushed into weights.bin
+                                <strong>Owner Gamertag:</strong> <span>Voblit</span><br>
+                                <strong>Status:</strong> [cite: 99]probly workign 🤷‍♂️<br>
+                                <strong>System Platform:</strong> [cite: 99]scraps left of my sanity + sh*tty html + the hopes and dreams of the internet crushed into weights.bin
                             </div>
                         </div>
                         <div class="ps-info-card" style="height: auto; flex: none;">
                             <h4>Credits & Build</h4>
                             <div class="card-payload">
                                 <p>This production was made by Voblit because he was too bored. UI/Layout AI generated because I suck @ss at css... lol</p>
-                                <p>you should check out my other stuff too, and my socials ofc, all at <a href="https://voblit.vercel.app" target="_blank">my site</a>.</p>
+                                <p>you should check out my other stuff too, and my socials ofc, all at <a href="https://voblit.vercel.app" target="_blank">[cite: 102]my site</a>.</p>
                                 <hr>
-                                <strong>App Name:</strong> WikiSniff game board<br>
-                                <strong>Version:</strong> idfk i lost count<br>
-                                <strong>License:</strong> MIT standart ... if i rewmemebr correclty...
+                                <strong>App Name:</strong> [cite: 103]WikiSniff game board<br>
+                                <strong>Version:</strong> [cite: 103]idfk i lost count<br>
+                                <strong>License:</strong> [cite: 103]MIT standart ... if i rewmemebr correclty...
                             </div>
                         </div>
                     </div>
@@ -533,14 +536,14 @@
 
         <footer class="ps-footer">
             <div class="ps-prompts-cluster">
-                <span>WikiSniff games</span>
+                <span>[cite: 105]WikiSniff games</span>
             </div>
             <div class="ps-prompts-cluster">
-                <span><span class="ps-glyph-btn">◀</span><span class="ps-glyph-btn">▶</span> Arrow Keys: Navigate Track</span>
-                <span><span class="ps-glyph-btn">▲</span> Move up to Carousel</span>
-                <span><span class="ps-glyph-btn">▼</span> Select Options Panel</span>
-                <span><span class="ps-glyph-btn">X</span> Enter: Confirm/Launch</span>
-                <span><span class="ps-glyph-btn">O</span> Escape: Exit Game</span>
+                <span><span class="ps-glyph-btn">◀</span><span class="ps-glyph-btn">▶</span> [cite: 105]Arrow Keys: Navigate Track</span>
+                <span><span class="ps-glyph-btn">▲</span> [cite: 106]Move up to Carousel</span>
+                <span><span class="ps-glyph-btn">▼</span> [cite: 106]Select Options Panel</span>
+                <span><span class="ps-glyph-btn">X</span> [cite: 106]Enter: Confirm/Launch</span>
+                <span><span class="ps-glyph-btn">O</span> [cite: 106]Escape: Exit Game</span>
             </div>
         </footer>
 
@@ -549,7 +552,7 @@
     <div id="appViewportCanvas">
         <div class="viewport-dashboard-home-tray">
             <button class="ps-home-btn" id="closeAppBtn" onclick="killActiveApplication()">
-                <span style="font-size: 1rem;">🏠</span> Home
+                <span style="font-size: 1rem;">🏠</span> [cite: 107]Home
             </button>
         </div>
         <iframe id="gameRunnerFrame" class="game-runner-frame" allow="fullscreen; autoplay"></iframe>
@@ -557,32 +560,32 @@
 
     <script>
          const systemGamesDatabase = [
-            { id: "balatro", title: "Balatro", desc: "A poker-powered roguelike deck builder where you combine valid poker hands with unique Joker cards to discover deep strategic synergies and break the house math completely.", meta: "Genre: Roguelike Deckbuilder<br>Developer: LocalThunk", url: "https://cdn.startmyeducation.us/balatro/", bg: "./icons/balatro.png" },
-            { id: "ddlc", title: "Doki Doki Literature Club", desc: "Welcome to the school literature club! Join your new friends to write poems and chat. Pay close attention to the characters, as this psychological narrative contains surprising, reality-bending twists.", meta: "Genre: Psychological Fiction<br>Developer: Team Salvato", url: "https://cdn.startmyeducation.us/DDLC/", bg: "./icons/ddlc.png" },
-            { id: "spacewaves", title: "Space Waves", desc: "Steer a fast-moving energy node through a series of geometric obstacle courses. Time your direction shifts perfectly to match rhythmic pulses and clear complex pathways.", meta: "Genre: Rhythmic Arcade Reflex<br>Developer: idk", url: "https://cdn.startmyeducation.us/space-waves/?fixed", bg: "./icons/spacewaves.png" },
-            { id: "ironlung", title: "Iron Lung", desc: "Navigate a tiny submarine through a dense ocean of fluid inside a desolate moon. Use basic instruments and tracking sensors to snapshot mysterious targets under immense pressure.", meta: "Genre: Atmospheric Survival<br>Developer: David Szymanski", url: "https://cdn.startmyeducation.us/iron-lung/", bg: "./icons/ironlung.png" },
-            { id: "buckshot", title: "Buckshot Roulette", desc: "Enter a dark underground venue and play a tense, strategic tabletop game against a mysterious Dealer. Monitor the current item pool and track loaded shells to swing the odds in your favor.", meta: "Genre: Strategy Tabletop<br>Developer: Mike Klubnika", url: "https://cdn.startmyeducation.us/buckshot-roulette/", bg: "./icons/buckshot.png" },
-            { id: "residentevil", title: "Resident Evil - DC", desc: "The definitive survival horror experience. Investigate a remote mansion filled with puzzles, dangerous anomalies, and secrets while managing your limited resource cache.", meta: "Genre: Retro Survival Horror<br>Developer: Capcom (Classic Console)", url: "https://cdn.startmyeducation.us/emulatorjs/auto.html#psx/Resident%20Evil%20-%20Director's%20Cut%20(USA).bin", bg: "./icons/resevil.png" },
-            { id: "temple2", title: "Temple Run 2", desc: "Outrun your pursuers through winding cliffs, zip lines, and subterranean mine tunnels. Put your quick reflexes to the test as you jump, slide, and turn past various hazards.", meta: "Genre: Endless Arcade Runner<br>Developer: Imangi Studios", url: "https://cdn.startmyeducation.us/temple-run-2/", bg: "./icons/templerun2.png" },
-            { id: "vicecity", title: "Vice City", desc: "Return to the neon-lit streets of an expansive 1980s coastal town. Build your local influence through an array of driving and narrative missions set to an iconic period soundtrack.", meta: "Genre: Open World Action<br>Developer: Rockstar Games", url: "https://cdn.startmyeducation.us/vice-city/index.html?=finalversion", bg: "./icons/vicecity.png" },
-            { id: "adofai", title: "A Dance of Fire and Ice", desc: "A strict one-button rhythm game. Guide two orbiting planets down a winding track in perfect synchronization with the underlying musical beat without breaking your momentum.", meta: "Genre: Rhythm Mechanics Rhythm<br>Developer: 7th Beat Games", url: "https://cdn.startmyeducation.us/adofai/", bg: "./icons/adofai.png" },
-            { id: "escaperoad2", title: "Escape Road 2", desc: "The chase scales up with new environments and vehicles. Outmaneuver responding units through dense urban layouts using sudden turns and drifting mechanics.", meta: "Genre: Driving Reflex Arcade<br>Developer: Dynamic Web Studio", url: "https://cdn.startmyeducation.us/escape-road_2/", bg: "./icons/escaper2.png" },
-            { id: "escaperoad", title: "Escape Road", desc: "Navigate a fast-moving vehicle through heavy city blocks while evasion tracking scales up. Weave through traffic and avoid traps to keep your run going as long as possible.", meta: "Genre: Physics Evasion Arcade<br>Developer: Web Discovery Engine", url: "https://cdn.startmyeducation.us/escape-road/", bg: "./icons/escaper.png" },
-            { id: "ragdollhit", title: "Ragdoll Hit", desc: "Engage in physics-driven, ragdoll combat. Time your punches, kicks, and environmental interactions to down your targets while keeping your own balance.", meta: "Genre: Physics Combat Sandbox<br>Developer: Experimental Play", url: "https://cdn.startmyeducation.us/RagdollHit/", bg: "./icons/ragdollh.png" },
-            { id: "drivemad", title: "Drive Mad", url: "https://cdn.startmyeducation.us/drivemad/", desc: "A physics-based driving game where you maneuver custom off-road trucks across creative hazard tracks filled with ramps, loops, and fragile bridges.", meta: "Genre: Driving Physics Stunt<br>Developer: Martin Magni", bg: "./icons/drivemad.png" },
-            { id: "halflife", title: "Half-Life", url: "https://cdn.startmyeducation.us/half-life/", desc: "The legendary sci-fi shooter. Survive an anomaly containment breach inside a remote research facility using smart environmental puzzle-solving and defense strategies.", meta: "Genre: First-Person Sci-Fi Shooter<br>Developer: Valve Corporation", bg: "./icons/halflife.png" },
-            { id: "gdlite", title: "Geometry Dash Lite", url: "https://cdn.startmyeducation.us/gdlite/", desc: "Jump, fly, and flip your way through dangerous spike grids. Time your actions carefully to match the fast rhythm tracks in this intense platformer.", meta: "Genre: Rhythm Platformer Rythmic<br>Developer: RobTop Games", bg: "./icons/gdlite.png" },
-            { id: "undertale", title: "Undertext", url: "https://cdn.startmyeducation.us/undertale/play.html", desc: "A unique roleplaying game where you navigate an underground realm of monsters. Use creative negotiation systems to resolve encounters without relying on combat.", meta: "Genre: Narratively Rich RPG<br>Developer: Toby Fox", bg: "./icons/undertale.png" },
-            { id: "granny", title: "Granny", url: "https://cdn.startmyeducation.us/granny/", desc: "A tense first-person horror escape game. Search a quiet, locked house for keys and tools while moving carefully to avoid alerting your pursuer.", meta: "Genre: First-Person Stealth Horror<br>Developer: DVloper", bg: "./icons/granny.png" },
-            { id: "baldi", title: "Baldi's Basics", url: "https://cdn.startmyeducation.us/baldi/", desc: "A meta horror game disguised as a 90s educational edutainment title. Collect notebooks while solving math problems and avoiding the quick-stepping Baldi.", meta: "Genre: Survival Horror / Edutainment<br>Developer: Basically Games", bg: "./icons/baldi.png" },
-            { id: "subwaysurfers", title: "Subway Surfers", url: "https://cdn.startmyeducation.us/surfers/", desc: "Dash and dodge oncoming trains as fast as you can. Help Jake, Tricky & Fresh escape from the grumpy Inspector and his dog in this endless runner classic.", meta: "Genre: Endless Arcade Runner<br>Developer: Kiloo / SYBO Games", bg: "./icons/surfers.png" },
-            { id: "crossyroad", title: "Crossy Road", url: "https://cdn.startmyeducation.us/crossyroad/index.html?world=original", desc: "Why did the Chicken cross the road? Dodge traffic, hop across logs, and evade train tracks in an endless voxel-style hopping adventure.", meta: "Genre: Endless Arcade Hopper<br>Developer: Hipster Whale", bg: "./icons/crossyroad.png" },
-            { id: "slopehd", title: "Slope HD", url: "https://cdn.startmyeducation.us/SlopeHD/", desc: "Drive a ball down an endless, steep neon downhill track. Avoid sudden drops, moving walls, and red barriers as your speed climbs dangerously high.", meta: "Genre: Physics Arcade Runner<br>Developer: Rob Kay", bg: "./icons/slope.png" },
-            { id: "tetris", title: "Tetris", url: "https://cdn.startmyeducation.us/tetris/", desc: "The definitive arcade puzzle game. Rotate, move, and drop falling tetrominoes to clear horizontal rows and prevent your matrix from stacking to the top.", meta: "Genre: Tile-Matching Puzzle<br>Developer: Alexey Pajitnov", bg: "./icons/tetris.png" },
-            { id: "mario64", title: "Super Mario 64", url: "https://cdn.startmyeducation.us/mario64/", desc: "The foundational 3D platformer. Explore Princess Peach's castle, jump through magical paintings, and collect Power Stars to defeat Bowser.", meta: "Genre: Classic 3D Platformer<br>Developer: Nintendo", bg: "./icons/mario64.png" },
-            { id: "ultrakill", title: "ULTRAKILL", url: "https://cdn.startmyeducation.us/ultrakill/", desc: "Mankind is dead. Blood is fuel. Hell is full. Dive into a fast-paced retro first-person shooter that blends classic movement shooters with character action style mechanics.", meta: "Genre: Fast-Paced Retro FPS<br>Developer: Arsi 'Hakita' Patala", bg: "./icons/ultrakill.png" },
-            { id: "bendy", title: "Bendy and the Ink Machine", url: "https://cdn.startmyeducation.us/bendy/", desc: "Revisit the abandoned animation studio of Joey Drew Studios. Navigate shadows, solve puzzles, and escape ink monsters in this first-person survival horror nightmare.", meta: "Genre: Episodic Survival Horror<br>Developer: Kindly Beast", bg: "./icons/bendy.png" }
-        ];
+            { id: "balatro", title: "Balatro", desc: "A poker-powered roguelike deck builder where you combine valid poker hands with unique Joker cards to discover deep strategic synergies and break the house math completely.", meta: "Genre: Roguelike Deckbuilder<br>Developer: LocalThunk", url: "https://cdn.startmyeducation.us/balatro/", bg: "./icons/balatro.png" },
+            { id: "ddlc", title: "Doki Doki Literature Club", desc: "Welcome to the school literature club! Join your new friends to write poems and chat. Pay close attention to the characters, as this psychological narrative contains surprising, reality-bending twists.", meta: "Genre: Psychological Fiction<br>Developer: Team Salvato", url: "https://cdn.startmyeducation.us/DDLC/", bg: "./icons/ddlc.png" },
+            { id: "spacewaves", title: "Space Waves", desc: "Steer a fast-moving energy node through a series of geometric obstacle courses. Time your direction shifts perfectly to match rhythmic pulses and clear complex pathways.", meta: "Genre: Rhythmic Arcade Reflex<br>Developer: idk", url: "https://cdn.startmyeducation.us/space-waves/?fixed", bg: "./icons/spacewaves.png" },
+            { id: "ironlung", title: "Iron Lung", desc: "Navigate a tiny submarine through a dense ocean of fluid inside a desolate moon. Use basic instruments and tracking sensors to snapshot mysterious targets under immense pressure.", meta: "Genre: Atmospheric Survival<br>Developer: David Szymanski", url: "https://cdn.startmyeducation.us/iron-lung/", bg: "./icons/ironlung.png" },
+            { id: "buckshot", title: "Buckshot Roulette", desc: "Enter a dark underground venue and play a tense, strategic tabletop game against a mysterious Dealer. Monitor the current item pool and track loaded shells to swing the odds in your favor.", meta: "Genre: Strategy Tabletop<br>Developer: Mike Klubnika", url: "https://cdn.startmyeducation.us/buckshot-roulette/", bg: "./icons/buckshot.png" },
+            { id: "residentevil", title: "Resident Evil - DC", desc: "The definitive survival horror experience. Investigate a remote mansion filled with puzzles, dangerous anomalies, and secrets while managing your limited resource cache.", meta: "Genre: Retro Survival Horror<br>Developer: Capcom (Classic Console)", url: "https://cdn.startmyeducation.us/emulatorjs/auto.html#psx/Resident%20Evil%20-%20Director's%20Cut%20(USA).bin", bg: "./icons/resevil.png" },
+            { id: "temple2", title: "Temple Run 2", desc: "Outrun your pursuers through winding cliffs, zip lines, and subterranean mine tunnels. Put your quick reflexes to the test as you jump, slide, and turn past various hazards.", meta: "Genre: Endless Arcade Runner<br>Developer: Imangi Studios", url: "https://cdn.startmyeducation.us/temple-run-2/", bg: "./icons/templerun2.png" },
+            { id: "vicecity", title: "Vice City", desc: "Return to the neon-lit streets of an expansive 1980s coastal town. Build your local influence through an array of driving and narrative missions set to an iconic period soundtrack.", meta: "Genre: Open World Action<br>Developer: Rockstar Games", url: "https://cdn.startmyeducation.us/vice-city/index.html?=finalversion", bg: "./icons/vicecity.png" },
+            { id: "adofai", title: "A Dance of Fire and Ice", desc: "A strict one-button rhythm game. Guide two orbiting planets down a winding track in perfect synchronization with the underlying musical beat without breaking your momentum.", meta: "Genre: Rhythm Mechanics Rhythm<br>Developer: 7th Beat Games", url: "https://cdn.startmyeducation.us/adofai/", bg: "./icons/adofai.png" },
+            { id: "escaperoad2", title: "Escape Road 2", desc: "The chase scales up with new environments and vehicles. Outmaneuver responding units through dense urban layouts using sudden turns and drifting mechanics.", meta: "Genre: Driving Reflex Arcade<br>Developer: Dynamic Web Studio", url: "https://cdn.startmyeducation.us/escape-road_2/", bg: "./icons/escaper2.png" },
+            { id: "escaperoad", title: "Escape Road", desc: "Navigate a fast-moving vehicle through heavy city blocks while evasion tracking scales up. Weave through traffic and avoid traps to keep your run going as long as possible.", meta: "Genre: Physics Evasion Arcade<br>Developer: Web Discovery Engine", url: "https://cdn.startmyeducation.us/escape-road/", bg: "./icons/escaper.png" },
+            { id: "ragdollhit", title: "Ragdoll Hit", desc: "Engage in physics-driven, ragdoll combat. Time your punches, kicks, and environmental interactions to down your targets while keeping your own balance.", meta: "Genre: Physics Combat Sandbox<br>Developer: Experimental Play", url: "https://cdn.startmyeducation.us/RagdollHit/", bg: "./icons/ragdollh.png" },
+            { id: "drivemad", title: "Drive Mad", url: "https://cdn.startmyeducation.us/drivemad/", desc: "A physics-based driving game where you maneuver custom off-road trucks across creative hazard tracks filled with ramps, loops, and fragile bridges.", meta: "Genre: Driving Physics Stunt<br>Developer: Martin Magni", bg: "./icons/drivemad.png" },
+            { id: "halflife", title: "Half-Life", url: "https://cdn.startmyeducation.us/half-life/", desc: "The legendary sci-fi shooter. Survive an anomaly containment breach inside a remote research facility using smart environmental puzzle-solving and defense strategies.", meta: "Genre: First-Person Sci-Fi Shooter<br>Developer: Valve Corporation", bg: "./icons/halflife.png" },
+            { id: "gdlite", title: "Geometry Dash Lite", url: "https://cdn.startmyeducation.us/gdlite/", desc: "Jump, fly, and flip your way through dangerous spike grids. Time your actions carefully to match the fast rhythm tracks in this intense platformer.", meta: "Genre: Rhythm Platformer Rythmic<br>Developer: RobTop Games", bg: "./icons/gdlite.png" },
+            { id: "undertale", title: "Undertext", url: "https://cdn.startmyeducation.us/undertale/play.html", desc: "A unique roleplaying game where you navigate an underground realm of monsters. Use creative negotiation systems to resolve encounters without relying on combat.", meta: "Genre: Narratively Rich RPG<br>Developer: Toby Fox", bg: "./icons/undertale.png" },
+            { id: "granny", title: "Granny", url: "https://cdn.startmyeducation.us/granny/", desc: "A tense first-person horror escape game. Search a quiet, locked house for keys and tools while moving carefully to avoid alerting your pursuer.", meta: "Genre: First-Person Stealth Horror<br>Developer: DVloper", bg: "./icons/granny.png" },
+            { id: "baldi", title: "Baldi's Basics", url: "https://cdn.startmyeducation.us/baldi/", desc: "A meta horror game disguised as a 90s educational edutainment title. Collect notebooks while solving math problems and avoiding the quick-stepping Baldi.", meta: "Genre: Survival Horror / Edutainment<br>Developer: Basically Games", bg: "./icons/baldi.png" },
+            { id: "subwaysurfers", title: "Subway Surfers", url: "https://cdn.startmyeducation.us/surfers/", desc: "Dash and dodge oncoming trains as fast as you can. Help Jake, Tricky & Fresh escape from the grumpy Inspector and his dog in this endless runner classic.", meta: "Genre: Endless Arcade Runner<br>Developer: Kiloo / SYBO Games", bg: "./icons/surfers.png" },
+            { id: "crossyroad", title: "Crossy Road", url: "https://cdn.startmyeducation.us/crossyroad/index.html?world=original", desc: "Why did the Chicken cross the road? Dodge traffic, hop across logs, and evade train tracks in an endless voxel-style hopping adventure.", meta: "Genre: Endless Arcade Hopper<br>Developer: Hipster Whale", bg: "./icons/crossyroad.png" },
+            { id: "slopehd", title: "Slope HD", url: "https://cdn.startmyeducation.us/SlopeHD/", desc: "Drive a ball down an endless, steep neon downhill track. Avoid sudden drops, moving walls, and red barriers as your speed climbs dangerously high.", meta: "Genre: Physics Arcade Runner<br>Developer: Rob Kay", bg: "./icons/slope.png" },
+            { id: "tetris", title: "Tetris", url: "https://cdn.startmyeducation.us/tetris/", desc: "The definitive arcade puzzle game. Rotate, move, and drop falling tetrominoes to clear horizontal rows and prevent your matrix from stacking to the top.", meta: "Genre: Tile-Matching Puzzle<br>Developer: Alexey Pajitnov", bg: "./icons/tetris.png" },
+            { id: "mario64", title: "Super Mario 64", url: "https://cdn.startmyeducation.us/mario64/", desc: "The foundational 3D platformer. Explore Princess Peach's castle, jump through magical paintings, and collect Power Stars to defeat Bowser.", meta: "Genre: Classic 3D Platformer<br>Developer: Nintendo", bg: "./icons/mario64.png" },
+            { id: "ultrakill", title: "ULTRAKILL", url: "https://cdn.startmyeducation.us/ultrakill/", desc: "Mankind is dead. Blood is fuel. Hell is full. Dive into a fast-paced retro first-person shooter that blends classic movement shooters with character action style mechanics.", meta: "Genre: Fast-Paced Retro FPS<br>Developer: Arsi 'Hakita' Patala", bg: "./icons/ultrakill.png" },
+            { id: "bendy", title: "Bendy and the Ink Machine", url: "https://cdn.startmyeducation.us/bendy/", desc: "Revisit the abandoned animation studio of Joey Drew Studios. Navigate shadows, solve puzzles, and escape ink monsters in this first-person survival horror nightmare.", meta: "Genre: Episodic Survival Horror<br>Developer: Kindly Beast", bg: "./icons/bendy.png" }
+        ];
         let chosen_index_counter = 0;
         let action_section_focused = false;
         let alternate_panel_index = 0;
@@ -599,7 +602,6 @@
             let sorted_collection_source = [...systemGamesDatabase];
             let sorted_collection_source_but_arranged = sorted_collection_source.sort((x, y) => current_metrics[y.id] - current_metrics[x.id]);
             let current_sorted_deck = sorted_collection_source_but_arranged;
-            
             const track = document.getElementById('mainCarouselTrack');
             track.innerHTML = '';
 
@@ -618,7 +620,6 @@
                 square_tile.innerHTML = `<div class="ps-tile-title-fallback">${game.title}</div>`;
                 track.appendChild(square_tile);
             });
-
             render_active_glow_state();
         }
 
@@ -628,7 +629,6 @@
 
         function render_active_glow_state() {
             clear_all_glow_highlights();
-            
             const tiles = document.querySelectorAll('.ps-tile');
             if (tiles.length === 0) return;
 
@@ -636,11 +636,9 @@
             if (chosen_index_counter >= tiles.length) chosen_index_counter = tiles.length - 1;
 
             let specific_tile_element = tiles[chosen_index_counter];
-            
             if (!action_section_focused) {
                 specific_tile_element.classList.add('focused-node');
                 update_lower_action_deck_node(specific_tile_element.dataset);
-
                 specific_tile_element.scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest',
@@ -651,7 +649,6 @@
                     document.getElementById('masterActionLaunchBtn'),
                     ...document.querySelectorAll('.ps-sub-menu-item')
                 ];
-                
                 if (alternate_panel_index < 0) alternate_panel_index = 0;
                 if (alternate_panel_index >= control_nodes_pool.length) alternate_panel_index = control_nodes_pool.length - 1;
                 
@@ -664,7 +661,6 @@
             document.getElementById('overviewDescriptionText').innerText = dataset.desc;
             document.getElementById('metricsCounterText').innerText = `${dataset.launches} time(s) played.`;
             document.getElementById('metaAttributesText').innerHTML = dataset.meta;
-            
             document.getElementById('masterActionLaunchBtn').onclick = () => {
                 let initial_metric_data = localStorage.getItem('voblitos_play_metrics');
                 let initial_metric_data_but_parsed = JSON.parse(initial_metric_data) || {};
@@ -719,12 +715,9 @@
             if(!val.trim()) return;
             document.getElementById('headerGamertag').innerText = val;
             document.getElementById('avatarLetter').innerText = val.charAt(0).toUpperCase();
-            const creditsTag = document.getElementById('creditsGamertag');
-            if(creditsTag) creditsTag.innerText = val;
             localStorage.setItem('voblitos_gamertag', val);
         }
 
-        
         window.addEventListener('keydown', (e) => {
             if(document.activeElement && document.activeElement.tagName === 'INPUT') return;
 
@@ -732,7 +725,7 @@
 
             if (e.key === 'ArrowRight') {
                 if (!action_section_focused) {
-                    if (chosen_index_counter < tiles.length - 1) {
+                     if (chosen_index_counter < tiles.length - 1) {
                         chosen_index_counter++;
                         render_active_glow_state();
                     }
