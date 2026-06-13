@@ -3,249 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HoundFetch !!!! epic webiste</title>
+    <title>HoundFetch !!!! epic website</title>
     <style>
-        /* i hope this works lol */
+        /* Retro-compliant web-safe variables */
         :root {
-            --bg-canvas: #f0f0f0;
+            --bg-canvas: #fbfbfb;
             --bg-panel: #ffffff;
-            --border-color: #333333;
+            --border-color: #aaaaaa;
             --text-primary: #000000;
             --text-muted: #555555;
-            --link-color: #0000ff;
+            --link-color: #002bb8;
             --link-hover: #ff00ff;
-            --accent-red: red;
-            --academic-blue: #00008b;
+            --accent-red: #cc0000;
+            --academic-blue: #3366bb;
         }
 
         .dark-theme {
-            --bg-canvas: #121212;
-            --bg-panel: #222222;
-            --border-color: #ffffff;
-            --text-primary: #ffffff;
+            --bg-canvas: #1a1a1a;
+            --bg-panel: #242424;
+            --border-color: #555555;
+            --text-primary: #dddddd;
             --text-muted: #aaaaaa;
-            --link-color: #00ffff;
+            --link-color: #66b3ff;
             --link-hover: #ffff00;
-            --academic-blue: #00ffff;
+            --academic-blue: #66b3ff;
         }
 
         .dyslexia-font {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive !important;
+            font-family: Arial, Helvetica, sans-serif !important;
         }
 
         * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg-canvas);
             color: var(--text-primary);
-            font-family: 'Comic Sans MS', 'Comic Sans', sans-serif;
-            padding: 10px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            padding: 15px;
+            line-height: 1.5;
         }
 
         .wiki-container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 10px auto;
             background: var(--bg-panel);
-            border: 3px solid var(--border-color);
-            padding: 20px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
         }
 
         .wiki-header {
-            border-bottom: 4px dashed var(--academic-blue);
-            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        /* plain normal image box */
         .wiki-logo {
-            width: 130px;
+            width: 110px;
             height: auto;
-            border: 2px solid #000;
+            border: 1px solid var(--border-color);
+            display: block;
         }
 
         .wiki-title {
-            font-size: 40px;
-            font-weight: bold;
-            color: #ff0000;
+            font-size: 36px;
+            font-weight: normal;
+            font-family: Times, "Times New Roman", serif;
+            color: var(--text-primary);
             cursor: pointer;
-            text-shadow: 2px 2px #ffcc00;
         }
 
         .wiki-subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
+            margin-top: 2px;
         }
 
         .academic-toolbar {
-            margin-top: 10px;
+            display: flex;
+            gap: 5px;
         }
 
         .tool-btn {
-            background: yellow;
-            color: black;
-            padding: 5px;
-            font-weight: bold;
+            background: #f0f0f0;
+            color: #000000;
+            padding: 4px 8px;
+            font-size: 12px;
             cursor: pointer;
-            border: 2px solid black;
-            margin-right: 5px;
+            border: 1px solid #777777;
         }
 
         .tool-btn:hover {
-            background: lime;
+            background: #e0e0e0;
+            border-color: #333333;
         }
 
         .search-section {
-            background: #e0e0e0;
-            border: 2px solid black;
-            padding: 15px;
+            background: #f1f3f5;
+            border: 1px solid var(--border-color);
+            padding: 12px;
             margin-bottom: 20px;
         }
         .dark-theme .search-section {
-            background: #444;
+            background: #2a2a2a;
+        }
+
+        .search-section p {
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 5px;
         }
 
         .search-controls input {
-            padding: 8px;
+            padding: 5px;
             font-size: 14px;
-            width: 60%;
+            border: 1px solid #999999;
+            background: var(--bg-panel);
+            color: var(--text-primary);
+            flex-grow: 1;
+            max-width: 350px;
         }
 
         .search-section button {
-            padding: 8px;
-            background: cyan;
-            font-weight: bold;
+            padding: 5px 15px;
+            background: #e1e1e1;
+            color: #000000;
+            border: 1px solid #777777;
             cursor: pointer;
+        }
+
+        .search-section button:hover {
+            background: #d1d1d1;
         }
 
         .wiki-layout {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
         }
 
-        @media (min-width: 700px) {
+        @media (min-width: 750px) {
             .wiki-layout {
                 display: grid;
-                grid-template-columns: 2fr 1fr;
+                grid-template-columns: 1fr 260px;
             }
         }
 
         .main-article h2 {
             font-size: 24px;
-            color: blue;
-            margin-bottom: 10px;
-            text-decoration: underline;
+            font-family: Times, "Times New Roman", serif;
+            font-weight: normal;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 12px;
+            padding-bottom: 2px;
         }
-        .dark-theme .main-article h2 {
-            color: #00ffff;
+
+        .main-article p {
+            margin-bottom: 14px;
+            font-size: 14px;
         }
 
         .article-stats-bar {
             font-size: 11px;
-            background: #eee;
-            padding: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            color: black;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            margin-bottom: 12px;
+            border: 1px dashed var(--border-color);
+            color: var(--text-muted);
+        }
+        .dark-theme .article-stats-bar {
+            background: #252525;
         }
 
         .key-points-panel {
-            background: #ffffcc;
-            border: 2px dashed red;
-            padding: 10px;
-            margin: 15px 0;
-            color: black;
+            background: #fffdf0;
+            border: 1px solid #e2db99;
+            padding: 12px;
+            margin: 14px 0;
+            color: #333333;
+        }
+        .dark-theme .key-points-panel {
+            background: #2a2920;
+            border-color: #555030;
+            color: #dddddd;
         }
 
         .concept-block {
-            margin-bottom: 20px;
-            padding: 10px;
-            background: #f9f9f9;
-            border: 1px solid black;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #fcfcfc;
+            border-left: 3px solid var(--academic-blue);
+            border-top: 1px solid #eeeeee;
+            border-right: 1px solid #eeeeee;
+            border-bottom: 1px solid #eeeeee;
         }
         .dark-theme .concept-block {
-            background: #333;
+            background: #282828;
+            border-top-color: #333; border-right-color: #333; border-bottom-color: #333;
         }
 
         .concept-title {
             font-weight: bold;
-            color: green;
-        }
-        .dark-theme .concept-title {
-            color: lime;
+            font-size: 13px;
+            color: var(--academic-blue);
+            margin-bottom: 4px;
         }
 
         .feedback-heading {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-            color: purple;
-        }
-        .dark-theme .feedback-heading {
-            color: magenta;
+            font-size: 18px;
+            font-family: Times, "Times New Roman", serif;
+            margin: 24px 0 10px;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 4px;
         }
 
         .feedback-card {
-            background: #f0f0f0;
-            border: 1px dashed gray;
-            padding: 10px;
+            background: #fcfcfc;
+            border: 1px solid #e5e5e5;
+            padding: 12px;
             margin-bottom: 10px;
+            font-style: italic;
+            font-size: 13px;
         }
         .dark-theme .feedback-card {
-            background: #222;
+            background: #252525;
+            border-color: #383838;
         }
 
         .feedback-user {
             display: block;
             font-weight: bold;
-            color: darkblue;
-            font-size: 12px;
-        }
-        .dark-theme .feedback-user {
-            color: lightblue;
+            font-style: normal;
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 4px;
         }
 
         .sidebar-box {
-            background: #fff0f5;
-            border: 2px solid var(--border-color);
-            padding: 15px;
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            padding: 14px;
             margin-bottom: 15px;
-            color: black;
         }
         .dark-theme .sidebar-box {
-            background: #443344;
-            color: white;
+            background: #222222;
         }
 
         .sidebar-box h4 {
-            margin-bottom: 10px;
-            color: red;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 3px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
         }
 
         .tool-link, .nav-link {
             display: block;
             color: var(--link-color);
-            text-decoration: underline;
-            margin-bottom: 8px;
+            text-decoration: none;
+            margin-bottom: 6px;
             cursor: pointer;
+            font-size: 13px;
+        }
+
+        .tool-link:hover, .nav-link:hover {
+            text-decoration: underline;
         }
 
         .loading-text {
-            font-weight: bold;
-            color: orange;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
+            color: #d97706;
+            font-style: italic;
         }
     </style>
 </head>
@@ -262,8 +309,8 @@
                 </div>
             </div>
             <div class="academic-toolbar">
-                <button class="tool-btn" onclick="toggleTheme()">💡 DARK MODE BTN</button>
-                <button class="tool-btn" onclick="toggleDyslexia()">Font changer</button>
+                <button class="tool-btn" onclick="toggleTheme()">🌓 Toggle Theme</button>
+                <button class="tool-btn" onclick="toggleDyslexia()">Font Style</button>
             </div>
         </div>
 
@@ -316,7 +363,7 @@
             </div>
 
             <div class="feedback-heading">
-                “ what people are saying about us...
+                what people are saying about us...
             </div>
 
             <div class="feedback-grid">
@@ -393,7 +440,7 @@
 
             let citationHTML = `
                 <div class="key-points-panel" id="citationOutput">
-                    <h4>copy this for your teacher:</h4>
+                    <h4 style="font-size:13px; font-weight:bold; margin-bottom:4px;">copy this for your teacher:</h4>
                     <p style="font-size:12px;">${mla}</p>
                 </div>
             `;
@@ -430,7 +477,7 @@
                             <h2>word info: ${wordData.word} (${partOfSpeech})</h2>
                             <div class="key-points-panel">
                                 <b>what it means:</b>
-                                <p>${definition}</p>
+                                <p style="font-size:14px; margin-top:4px;">${definition}</p>
                             </div>
                         `;
                     })
@@ -467,17 +514,17 @@
                         </div>
                         <div class="key-points-panel">
                             <b>summary points:</b>
-                            <ul>${bulletItemsHTML}</ul>
+                            <ul style="padding-left:20px; margin-top:4px;">${bulletItemsHTML}</ul>
                         </div>
-                        ${data.thumbnail ? `<img src="${data.thumbnail.source}" style="max-width:150px; border:2px solid black;" alt="pic">` : ''}
+                        ${data.thumbnail ? `<img src="${data.thumbnail.source}" style="max-width:150px; border:1px solid var(--border-color); float:right; margin:0 0 10px 10px;" alt="pic">` : ''}
                         <p>${data.extract_html || data.extract}</p>
                     `;
                 })
                 .catch(err => {
                     targetContent.innerHTML = `
                         <h2>error omg</h2>
-                        <p style="color:red;">${err.message}</p>
-                        <button onclick="navigateToHome()">go home</button>
+                        <p style="color:var(--accent-red); margin: 8px 0;">${err.message}</p>
+                        <button onclick="navigateToHome()" style="padding:4px 8px; cursor:pointer;">go home</button>
                     `;
                 });
         }
@@ -522,6 +569,6 @@
             }
         });
     </script>
-    <footer style="margin-top:20px; text-align:center; font-size:12px;">made with love by <a href="https://voblit.vercel.app" target="_blank">Voblit</a> nolan i made this myself  🙄</footer>
+    <footer style="margin-top:20px; text-align:center; font-size:12px; color:var(--text-muted);">made with love by <a href="https://voblit.vercel.app" target="_blank" style="color:inherit;">Voblit</a> nolan i made this myself stop crying 🙄</footer>
 </body>
-</html>
+</html
