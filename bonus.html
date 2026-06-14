@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +43,86 @@
             pointer-events: none;
         }
 
+        /* --- Announcement Overlay System --- */
+        .banner-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(4, 10, 22, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .banner-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(0, 210, 255, 0.2);
+            width: 90%;
+            max-width: 650px;
+            padding: 40px;
+            position: relative;
+            text-align: center;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .banner-close-btn {
+            position: absolute;
+            top: 15px; right: 20px;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.4);
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.15s, transform 0.15s;
+        }
+        .banner-close-btn:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .banner-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #fff, var(--ps-blue-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .banner-body {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .banner-link {
+            color: var(--ps-blue-glow);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dashed var(--ps-blue-glow);
+            padding-bottom: 2px;
+        }
+        .banner-link:hover {
+            color: #fff;
+            border-bottom-style: solid;
+        }
+
+        #confettiCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 1000000;
+        }
+
+        /* --- Rest of Original Styles --- */
         .ps-shell {
             position: relative;
             z-index: 1;
@@ -434,6 +512,30 @@
 </head>
 <body>
 
+    <canvas id="confettiCanvas"></canvas>
+
+    <div class="banner-overlay" id="announcementOverlay">
+        <div class="banner-card">
+            <button class="banner-close-btn" onclick="dismissPromoBanner()">[ X ]</button>
+            <h1 class="banner-title">YAY W SPEEDDD LETS GOOOOOOOOOOOOOOOOOO</h1>
+            <div class="banner-body">
+                <p>I finally dont have to deal with the vercel.app, visit houndfetch.cc today!</p>
+                <p style="margin-top: 15px;">
+                     <strong>Main Website:</strong> 
+                    <a href="https://houndfetch.cc" target="_blank" class="banner-link">houndfetch.cc</a>
+                </p>
+                <div style="margin-top: 10px;">
+                    <p>I even got an eaglercraft server!!!!!</p>
+                     <strong>link (put in eaglercraft, should be dog icon, I have yet to get desc. working):</strong> 
+                    <span style="color: #00d2ff; font-family: monospace; background: rgba(0,0,0,0.4); padding: 4px 10px; font-weight: bold; border-radius: 4px;">wss://server.houndfetch.cc</span>
+                </div>
+                <p style="margin-top: 25px; font-size: 0.9rem; color: rgba(255,255,255,0.4);">
+                    press esc...
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="ps-shell">
         
         <header class="ps-function-row">
@@ -591,6 +693,91 @@
         let chosen_index_counter = 0;
         let action_section_focused = false;
         let alternate_panel_index = 0;
+        let promo_banner_active = true;
+
+        /* --- Engine Confetti Logic --- */
+        const canvasElement = document.getElementById("confettiCanvas");
+        const canvasCtx = canvasElement.getContext("2d");
+        let confettiArray = [];
+        let animationFrameToken = null;
+
+        function resizeConfettiCanvas() {
+            canvasElement.width = window.innerWidth;
+            canvasElement.height = window.innerHeight;
+        }
+
+        class ConfettiParticle {
+            constructor() {
+                this.x = Math.random() * canvasElement.width;
+                this.y = Math.random() * -canvasElement.height - 20;
+                this.width = Math.random() * 8 + 6;
+                this.height = Math.random() * 12 + 10;
+                this.speedY = Math.random() * 3 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 4 - 2;
+                this.scaleY = 1;
+                this.scaleSpeed = Math.random() * 0.06 + 0.03;
+                
+                const colors = ['#00d2ff', '#003791', '#ff007f', '#ffea00', '#00ff66', '#ffffff'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.y / 30) * 0.5; // realistic floating swing
+                this.rotation += this.rotationSpeed;
+                this.scaleY = Math.sin(this.y / 15); // tumbling 3D effect
+                
+                if (this.y > canvasElement.height + 20) {
+                    this.y = -20;
+                    this.x = Math.random() * canvasElement.width;
+                }
+            }
+            draw() {
+                canvasCtx.save();
+                canvasCtx.translate(this.x, this.y);
+                canvasCtx.rotate((this.rotation * Math.PI) / 180);
+                canvasCtx.scale(1, this.scaleY);
+                canvasCtx.fillStyle = this.color;
+                canvasCtx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+                canvasCtx.restore();
+            }
+        }
+
+        function triggerConfettiBlast() {
+            resizeConfettiCanvas();
+            confettiArray = [];
+            for (let i = 0; i < 125; i++) {
+                confettiArray.push(new ConfettiParticle());
+            }
+            if(animationFrameToken) cancelAnimationFrame(animationFrameToken);
+            runConfettiLoop();
+        }
+
+        function runConfettiLoop() {
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            let activeParticles = false;
+            confettiArray.forEach(p => {
+                p.update();
+                p.draw();
+                if (p.y < canvasElement.height) activeParticles = true;
+            });
+            if(promo_banner_active || activeParticles) {
+                animationFrameToken = requestAnimationFrame(runConfettiLoop);
+            } else {
+                canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            }
+        }
+
+        function dismissPromoBanner() {
+            promo_banner_active = false;
+            const overlay = document.getElementById('announcementOverlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                render_active_glow_state();
+            }, 300);
+        }
 
         function build_orbis_horizontal_carousel() {
             let initial_metrics_raw = localStorage.getItem('voblitos_play_metrics');
@@ -630,6 +817,7 @@
         }
 
         function render_active_glow_state() {
+            if (promo_banner_active) return; // Keep controls locked if announcement is up
             clear_all_glow_highlights();
             const tiles = document.querySelectorAll('.ps-tile');
             if (tiles.length === 0) return;
@@ -693,6 +881,7 @@
         }
 
         function toggleSettingsModal(open) {
+            if (promo_banner_active) return;
             const modal = document.getElementById('settingsModal');
             if(open) {
                 modal.classList.add('modal-active');
@@ -722,6 +911,15 @@
 
         window.addEventListener('keydown', (e) => {
             if(document.activeElement && document.activeElement.tagName === 'INPUT') return;
+
+            // Handle keys when the announcement display overlay is up
+            if (promo_banner_active) {
+                if (e.key === 'Enter' || e.key === 'Escape') {
+                    dismissPromoBanner();
+                    e.preventDefault();
+                }
+                return;
+            }
 
             const tiles = document.querySelectorAll('.ps-tile');
 
@@ -782,6 +980,8 @@
             }
         });
 
+        window.addEventListener('resize', resizeConfettiCanvas);
+
         window.addEventListener('DOMContentLoaded', () => {
             build_orbis_horizontal_carousel();
             const cache_name_raw = localStorage.getItem('voblitos_gamertag');
@@ -789,7 +989,7 @@
                 document.getElementById('gamertagInput').value = cache_name_raw;
                 updateLocalProfileTag(cache_name_raw);
             }
-            render_active_glow_state();
+            triggerConfettiBlast();
         });
 
         const canvas = document.getElementById("appViewportCanvas");
@@ -815,10 +1015,14 @@
         updateClock();
 
         window.addEventListener("keydown", function(e) {
-            if (e.key === "Escape" || e.keyCode === 27) killActiveApplication();
+            if (e.key === "Escape" || e.keyCode === 27) {
+                if (promo_banner_active) {
+                    dismissPromoBanner();
+                } else {
+                    killActiveApplication();
+                }
+            }
         });
     </script>
 </body>
 </html>
-
-
